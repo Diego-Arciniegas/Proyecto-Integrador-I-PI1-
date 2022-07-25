@@ -1,2 +1,5 @@
-# Proyecto-Integrador-I-PI1-
+# Proyecto Integrador I (PI1)
 Integrantes:
+
+- Diego Stiven Arciniegas Torres
+-
