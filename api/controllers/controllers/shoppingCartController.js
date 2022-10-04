@@ -19,10 +19,10 @@ const addShoppingCart = async (req, res)=>{
             id_user: req.params.id_user
         });
 
-        res.json({error: 0, shopping_cart});
+        res.status(200).json({error: 0, shopping_cart});
 
     }catch(err){
-        res.json({error: err.message});
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -62,10 +62,10 @@ const getShoppingCart = async (req, res)=>{
             accessories[i].total_price = accesories_price;
         }
 
-        res.json({error: 1, shopping_cart, accessories, price: total_price});
+        res.status(200).json({error: 1, shopping_cart, accessories, price: total_price});
 
     }catch(err){
-        res.json({error: err.message});
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -87,10 +87,10 @@ const deleteShoppingCart = async (req, res)=>{
         });
 
         
-        res.json({message: 'deleted'});
+        res.status(200).json({message: 'deleted'});
 
     }catch(err){
-        res.json({error: err.message});
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -128,10 +128,10 @@ const addAccessory = async (req, res)=>{
             });
         }
 
-        res.json(shopping_cart);
+        res.status(200).json(shopping_cart);
 
     }catch(err){
-        res.json({error: err.message});
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -156,9 +156,9 @@ const deleteAccesory = async (req, res)=>{
             }
         }); 
 
-        res.json({done: 'done'});
+        res.status(200).json({done: 'done'});
     }catch(err){
-        res.json({error: err.message});
+        res.status(400).json({error: err.message});
     }
 }
 

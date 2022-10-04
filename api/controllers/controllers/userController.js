@@ -15,7 +15,7 @@ const login = async (req, res)=>{
         });
 
         if(user===null){
-            return res.json({error: 0, message: 'Correo o contraseña no validos'});
+            return res.status(401).json({error: 1, message: 'Correo o contraseña no validos'});
         }
         
         var math = await bc.compare(req.body.password, user.password);
@@ -31,13 +31,13 @@ const login = async (req, res)=>{
                 expiresIn: '24h'
             });
 
-            res.json({error: 1, user, token});
+            res.status(200).json({error: 0, user, token});
         }else{
-            res.json({error: 0, message: 'Usuario o contraseña no validos'});
+            res.status(401).json({error: 1, message: 'Usuario o contraseña no validos'});
         }
 
     }catch(err){
-        res.json({error: err.message});
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -51,7 +51,7 @@ const register = async (req, res)=>{
         });
 
         if(user_db!==null){
-            return res.json({error: 0, message: 'Correo ya registrado'});
+            return res.status(401).json({error: 1, message: 'Correo ya registrado'});
         }
 
         var user_db = await models.Users.findOne({
@@ -61,7 +61,7 @@ const register = async (req, res)=>{
         });
 
         if(user_db!==null){
-            return res.json({error: 1, message: 'Numero de identificación ya registrado'});
+            return res.status(401).json({error: 2, message: 'Numero de identificación ya registrado'});
         }
 
         req.body.password = await bc.hash(req.body.password, 10);
@@ -77,10 +77,10 @@ const register = async (req, res)=>{
             expiresIn: '24h'
         });
 
-        res.json({error: 2, user, token});
+        res.status(200).json({error: 0, user, token});
 
     }catch(err){
-        res.json({error: err.message});
+        res.status(401).json({error: err.message});
     }
 }
 
@@ -95,10 +95,10 @@ const auth = async (req, res)=>{
         
         var decoded = jwt.verify(token, process.env.SECRET);
 
-        res.json({decoded});
+        res.status(200).json({decoded});
 
     }catch(err){
-        res.json({error: err.message});
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -134,10 +134,10 @@ const getUser = async (req, res)=>{
             });
         }
 
-        res.json(users || user);
+        res.status(200).json(users || user);
 
     }catch(err){
-        res.json({error: err.message});
+        res.status(400).json({error: err.message});
     }
 }
 
