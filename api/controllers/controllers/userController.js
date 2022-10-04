@@ -4,6 +4,7 @@ const vali = require('validator').default;
 const jwt = require('jsonwebtoken');
 const { Op } = require("sequelize");
 const lit = require('sequelize').literal;
+const nm = require('nodemailer');
 
 const login = async (req, res)=>{
     try{
@@ -102,6 +103,55 @@ const auth = async (req, res)=>{
     }
 }
 
+const restorePassword = async (req, res)=>{
+    try{
+        let mailTransporter = nm.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'accesorios.upb.2022@gmail.com',
+                pass: process.env.PASSWORDGMAIL
+            }
+        });
+        
+        var token = jwt.sign({
+            id_user: req.query.id_user
+        }, process.env.SECRET);
+        
+        
+        let mailDetails = {
+            from: 'accesorios.upb.2022@gmail.com',
+            to: req.query.to,
+            subject: 'Restore password',
+            text: 'Ingresa al siguiente enlace para continuar con el proceso '+
+                  `de restaurar la contraseña: https://www.accessorios.upb.com/resetpassword?token=${token}\n`+
+                  '\n\nSi no deseas cambiar la la contraseña has casi omiso a este mensaje'
+        };
+        
+        mailTransporter.sendMail(mailDetails, function(err, data) {
+            if(err) throw err;
+            else res.status(200).json({error: 0, data: data});
+        });
+        
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
+
+const editUser = async (req, res)=>{
+    try{
+
+        await models.Users.update(req.body, {
+            where: {
+                id_user: req.params.id_user
+            }
+        });
+        res.status(200).json({error: 0});
+
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
+
 const getUser = async (req, res)=>{
     try{
 
@@ -145,5 +195,7 @@ module.exports = {
     login,
     register,
     auth,
-    getUser
+    getUser,
+    restorePassword,
+    editUser
 }
