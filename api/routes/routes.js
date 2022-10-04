@@ -4,9 +4,11 @@ const c = require('../controllers/controllers.js');
 router.route('/login').post(c.users.login);
 router.route('/register').post(c.users.register);
 router.route('/auth').post(c.users.auth);
+router.route('/restore').post(c.users.restorePassword);
 
 router.route('/users').get(c.users.getUser);
 router.route('/users/:id_user').get(c.users.getUser);
+router.route('/users/:id_user').post(c.users.editUser);
 router.route('/users/:id_user/address').post(c.address.addAddressUser);
 router.route('/users/:id_user/address').get(c.address.getAddress);
 router.route('/users/:id_user/address').put(c.address.editAddress);
