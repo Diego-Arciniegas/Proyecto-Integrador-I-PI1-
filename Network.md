@@ -34,13 +34,17 @@
 
 ## Topology
 
-| Computer         | Services                      | VLAN | IPv6             | IPv6 mask | IPv6 Default Gateway     | DNS server IPv6  | IPv4           | IPv4 mask | IPv4 Default Gateway | DNS server IPV4 |
+| Computer         | Services                      | VLAN | IPv6             | IPv6 mask | IPv6 Default Gateway     | Primary DNS server IPv6  | IPv4           | IPv4 mask | IPv4 Default Gateway | DNS server IPv4 |
 |------------------|-------------------------------|------|------------------|-----------|--------------------------|------------------|----------------|-----------|----------------------|-----------------|
-| Debian           | POP3, IMAP, SMTP              | 4  | 2801:0:2E0:A:D::4 | 80        | 2801:0:2E0:A:D::1        | 2801:0:2E0:D2::3 | 192.168.101.18 | 28        | 192.168.101.17       | 192.168.101.19  |
-| Windows server 1 | HTTP, HTTPS, FTP, FTPS, Primary DNS | 4  | 2801:0:2E0:A:D::3 | 80        | 2801:0:2E0:A:D::1          | 2801:0:2E0:D2::3 | 192.168.101.19 | 28        | 192.168.101.17       | 192.168.101.19  |
-| Windows server 1 | Secundary DNS                 | 4  | 2801:0:2E0:A:D::5 | 80        | 2801:0:2E0:A:D::1          | 2801:0:2E0:D2::3 | 192.168.101.19 | 28        | 192.168.101.17       | 192.168.101.19  |
-| Router           | DHCP, NAT                     |   |            |         |  |  |            |        |        | 192.168.101.19  |
+| Debian           | POP3, IMAP, SMTP              | 4  | 2801:0:2E0:A:D::4 | 80         | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 | 172.17.40.4 | 24        | 172.17.40.3      | 172.17.40.4  |
+| Windows server 1 | HTTP, HTTPS, FTP, FTPS, Primary DNS | 4  | 2801:0:2E0:A:D::3 | 80   | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 | 172.17.40.3 | 24        | 172.17.40.3       | 172.17.40.3  |
+| Windows server 2 | Secundary DNS                 | 4  | 2801:0:2E0:A:D::5 | 80         | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 | 172.17.40.5 | 24        | 172.17.40.3       | 172.17.40.5  |
 
+## DHCP
+
+| Username        | VLAN                    | Direction IPv4 | Direction IPv6    | IPv4 Default Gateway | IPv6 Default Gateway| Red| broadcast | Red  | broadcast | Excluded Addresses IPv4
+|-----------------|-------------------------|----------------|-------------------|----------------------|---------------------|----------------|-------------------|----------------------|---------------------|---------------------|
+| Conexiones      | Default                 |172.17.10.0/24  |2801:0:2E0:A:A::/80|172.17.10.1           |2801:0:2E0:A:A::1    |172.17.10.1|172.17.10.254|2801:0:2E0:A:A::1|2801:0:2E0:A:A:FFFF:FFFF:FFFF| 172.17.10.1 - 172.17.10.20|
 
 ## Switch ports
 
