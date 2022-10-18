@@ -1,5 +1,29 @@
 # Network
 
+## Switch ports
+
+|Name VLAN      | VLAN    | Interface     | Port Range | Switchport |
+|:-------------:|:-------:|:-------------:|:----------:|:----------:|
+|Conexiones     | Default | FastEthernet  | 1 - 2      | Access     |
+|Usuarios       | 2       | FastEthernet  | 1 - 2      | Access     |
+|Administradores| 3       | FastEthernet  | 1 - 2      | Access     |
+|Servidores     | 4       | FastEthernet  | 1 - 2      | Access     |
+|               |         | FastEthernet  | 23 - 24    | Trunk      |
+
+
+## Router ports
+
+|Devices        | Interface        | Direction IPv4 | Direction IPv6  | Subnet Mask IPv4 |Subnet Mask IPv6 |IPv4 Default Gateway|IPv6 Default Gateway|
+|:-------------:|:----------------:|:--------------:|:---------------:|:----------------:|:---------------:|:------------------:|:------------------:|
+|Router         |serial 0/0/0      | 10.10.0.0      |2801:0:2E0:1::   |255.255.255.252   |/126             |10.10.0.1           | 2801:0:2E0:1::1    |
+|               |FastEthernet 0/1  | 172.17.0.0     |2801:0:2E0:A::   |255.255.0.0       |/64              |                    | 2801:0:2E0:1::1    |
+|               |FastEthernet 0/1.1| 172.17.10.0    |2801:0:2E0:A:A:: |255.255.255.0     |/80              |172.17.10.1         | 2801:0:2E0:A:A::1  |
+|               |FastEthernet 0/1.2| 172.17.20.0    |2801:0:2E0:A:B:: |255.255.255.0     |/80              |172.17.20.1         | 2801:0:2E0:A:B::1  |
+|               |FastEthernet 0/1.3| 172.17.30.0    |2801:0:2E0:A:C:: |255.255.255.0     |/80              |172.17.30.1         | 2801:0:2E0:A:C::1  |
+|               |FastEthernet 0/1.4| 172.17.40.0    |2801:0:2E0:A:D:: |255.255.255.0     |/80              |172.17.40.1         | 2801:0:2E0:A:D::1  |
+|VLAN           |Vlan1             | 172.17.10.0    |2801:0:2E0:A:A:: |255.255.255.0     |/80              |172.17.10.2         | 2801:0:2E0:A:A::2  |
+
+
 ## Router ports redirect
 
 | Service/Application | Host (IPv4)    | Host (IPv6)      | Protocol | Port | Router port |
@@ -15,10 +39,27 @@
 | DNS                 | 192.168.101.19 | 2801:0:2E0:D2::3 | UDP?     | 53   | 53          |
 | HTTP Proxy          | 192.168.101.20 | 2801:0:2E0:D2::4 | TCP      | 8080 | 8080        |
 
+## Topology
+
+| Computer         | Services                      | VLAN | IPv6             | IPv6 mask | IPv6 Default Gateway     | Primary DNS server IPv6  | IPv4           | IPv4 mask | IPv4 Default Gateway | Primary DNS server IPv4 |
+|------------------|-------------------------------|------|------------------|-----------|--------------------------|------------------|----------------|-----------|----------------------|-----------------|
+| Debian           | POP3, IMAP, SMTP              | 4  | 2801:0:2E0:A:D::4 | 80         | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 | 172.17.40.4 | 24        | 172.17.40.3      | 172.17.40.4  |
+| Windows server 1 | HTTP, HTTPS, FTP, FTPS, Primary DNS | 4  | 2801:0:2E0:A:D::3 | 80   | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 | 172.17.40.3 | 24        | 172.17.40.3       | 172.17.40.3  |
+| Windows server 2 | Secundary DNS                 | 4  | 2801:0:2E0:A:D::5 | 80         | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 | 172.17.40.5 | 24        | 172.17.40.3       | 172.17.40.5  |
+
+## DHCP
+
+| Pool        | VLAN                    | Direction IPv4 | Direction IPv6    | IPv4 Default Gateway | IPv6 Default Gateway| Red| broadcast | Red  | broadcast | Excluded Addresses IPv4|
+|-----------------|-------------------------|----------------|-------------------|----------------------|---------------------|----------------|-------------------|----------------------|---------------------|---------------------|
+| Conexiones      | Default                 |172.17.10.0/24  |2801:0:2E0:A:A::/80|172.17.10.1           |2801:0:2E0:A:A::1    |172.17.10.1|172.17.10.254|2801:0:2E0:A:A::1|2801:0:2E0:A:A:FFFF:FFFF:FFFF| 172.17.10.1 - 172.17.10.20|
+| Usuarios     | 2                 |172.17.20.0/24  |2801:0:2E0:A:B::/80|172.17.20.1           |2801:0:2E0:A:B::1    |172.17.20.1|172.17.20.254|2801:0:2E0:A:B::1|2801:0:2E0:A:B:FFFF:FFFF:FFFF| 172.17.20.1 - 172.17.20.20|
+| Administradores     | 3                 |172.17.30.0/24  |2801:0:2E0:A:C::/80|172.17.30.1           |2801:0:2E0:A:B::1    |172.17.30.1|172.17.30.254|2801:0:2E0:A:B::1|2801:0:2E0:A:B:FFFF:FFFF:FFFF| 172.17.30.1 - 172.17.30.20|
+| Servidores    | 4                 |172.17.40.0/24  |2801:0:2E0:A:D::/80|172.17.40.1           |2801:0:2E0:A:D::1    |172.17.40.1|172.17.40.254|2801:0:2E0:A:D::1|2801:0:2E0:A:D:FFFF:FFFF:FFFF| 172.17.40.1 - 172.17.40.20|
+
 ## Primary zone domains
 
 | Domain                  | Type       | IPv4           | IPv6             |
-|-------------------------|------------|----------------|------------------|
+|:-----------------------:|:----------:|:--------------:|:----------------:|
 | www.accesorios.autoupb.com  | A and AAAA | 172.17.40.3 | 2801:0:2E0:A:D::3 |
 | ftp.accesorios.autoupb.com  | A and AAAA | 172.17.40.3 | 2801:0:2E0:A:D::3 |
 | mail.accesorios.autoupb.com | A and AAAA | 172.17.40.4 | 2801:0:2E0:A:D::4 |
@@ -27,37 +68,9 @@
 
 ## Secondary zone
 
-| Company           | Domain             | DNS server IPv4  | DNS server IPv6  |
-|-------------------|--------------------|----------------|----------------|
-| Accesorios        | accesorios.autoupb.com | 172.17.40.5 |2801:0:2E0:A:D::5 |
-
-
-## Topology
-
-| Computer         | Services                      | VLAN | IPv6             | IPv6 mask | IPv6 Default Gateway     | Primary DNS server IPv6  | IPv4           | IPv4 mask | IPv4 Default Gateway | DNS server IPv4 |
-|------------------|-------------------------------|------|------------------|-----------|--------------------------|------------------|----------------|-----------|----------------------|-----------------|
-| Debian           | POP3, IMAP, SMTP              | 4  | 2801:0:2E0:A:D::4 | 80         | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 | 172.17.40.4 | 24        | 172.17.40.3      | 172.17.40.4  |
-| Windows server 1 | HTTP, HTTPS, FTP, FTPS, Primary DNS | 4  | 2801:0:2E0:A:D::3 | 80   | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 | 172.17.40.3 | 24        | 172.17.40.3       | 172.17.40.3  |
-| Windows server 2 | Secundary DNS                 | 4  | 2801:0:2E0:A:D::5 | 80         | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 | 172.17.40.5 | 24        | 172.17.40.3       | 172.17.40.5  |
-
-## DHCP
-
-| Username        | VLAN                    | Direction IPv4 | Direction IPv6    | IPv4 Default Gateway | IPv6 Default Gateway| Red| broadcast | Red  | broadcast | Excluded Addresses IPv4
-|-----------------|-------------------------|----------------|-------------------|----------------------|---------------------|----------------|-------------------|----------------------|---------------------|---------------------|
-| Conexiones      | Default                 |172.17.10.0/24  |2801:0:2E0:A:A::/80|172.17.10.1           |2801:0:2E0:A:A::1    |172.17.10.1|172.17.10.254|2801:0:2E0:A:A::1|2801:0:2E0:A:A:FFFF:FFFF:FFFF| 172.17.10.1 - 172.17.10.20|
-
-## Switch ports
-
-- vlan 100 from fastEthernet 10 to fastEthernet 17
-- vlan 200 from fastEthernet 1 to fastEthernet 3
-- GigabitEthernet 0/1 connects to router GigabitEthernet 0/0/1
-
-## Router ports
-
-- serial 0/1/0 is connected workshop company
-- serial 0/1/1 is connected dealer company 2
-- GigabitEthernet 0/0/1 connects to switch GigabitEthernet 0/1
-- GigabitEthernet 0/0/0 connects to PC (IPTABLES)
+| Company           | Domain                 | DNS server IPv4  | DNS server IPv6  |
+|:-----------------:|:----------------------:|:----------------:|:----------------:|
+| Accesorios        | accesorios.autoupb.com | 172.17.40.5      |2801:0:2E0:A:D::5 |
 
 ## Scripts
 
