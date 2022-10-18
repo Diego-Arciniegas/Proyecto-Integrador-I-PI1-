@@ -3,18 +3,18 @@
 ## Switch ports
 
 |Name VLAN      | VLAN    | Interface     | Port Range | Switchport |
-|:-------------:|:-------:|:-------------:|:----------:|:----------:|
+|---------------|:-------:|:-------------:|:----------:|:----------:|
 |Conexiones     | Default | FastEthernet  | 1 - 2      | Access     |
-|Usuarios       | 2       | FastEthernet  | 1 - 2      | Access     |
-|Administradores| 3       | FastEthernet  | 1 - 2      | Access     |
-|Servidores     | 4       | FastEthernet  | 1 - 2      | Access     |
+|Usuarios       | 2       | FastEthernet  | 3 - 5      | Access     |
+|Administradores| 3       | FastEthernet  | 6 - 8      | Access     |
+|Servidores     | 4       | FastEthernet  | 9 - 11     | Access     |
 |               |         | FastEthernet  | 23 - 24    | Trunk      |
 
 
 ## Router ports
 
 |Devices        | Interface        | Direction IPv4 | Direction IPv6  | Subnet Mask IPv4 |Subnet Mask IPv6 |IPv4 Default Gateway|IPv6 Default Gateway|
-|:-------------:|:----------------:|:--------------:|:---------------:|:----------------:|:---------------:|:------------------:|:------------------:|
+|---------------|:----------------:|:--------------:|:---------------:|:----------------:|:---------------:|:------------------:|:------------------:|
 |Router         |serial 0/0/0      | 10.10.0.0      |2801:0:2E0:1::   |255.255.255.252   |/126             |10.10.0.1           | 2801:0:2E0:1::1    |
 |               |FastEthernet 0/1  | 172.17.0.0     |2801:0:2E0:A::   |255.255.0.0       |/64              |                    | 2801:0:2E0:1::1    |
 |               |FastEthernet 0/1.1| 172.17.10.0    |2801:0:2E0:A:A:: |255.255.255.0     |/80              |172.17.10.1         | 2801:0:2E0:A:A::1  |
@@ -59,7 +59,7 @@
 ## Primary zone domains
 
 | Domain                  | Type       | IPv4           | IPv6             |
-|:-----------------------:|:----------:|:--------------:|:----------------:|
+|-------------------------|:----------:|:--------------:|:----------------:|
 | www.accesorios.autoupb.com  | A and AAAA | 172.17.40.3 | 2801:0:2E0:A:D::3 |
 | ftp.accesorios.autoupb.com  | A and AAAA | 172.17.40.3 | 2801:0:2E0:A:D::3 |
 | mail.accesorios.autoupb.com | A and AAAA | 172.17.40.4 | 2801:0:2E0:A:D::4 |
@@ -69,7 +69,7 @@
 ## Secondary zone
 
 | Company           | Domain                 | DNS server IPv4  | DNS server IPv6  |
-|:-----------------:|:----------------------:|:----------------:|:----------------:|
+|-------------------|:----------------------:|:----------------:|:----------------:|
 | Accesorios        | accesorios.autoupb.com | 172.17.40.5      |2801:0:2E0:A:D::5 |
 
 ## Scripts
