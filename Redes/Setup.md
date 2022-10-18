@@ -8,7 +8,7 @@ sudo nano sources.list
 
 2. comment the second line
 
-![46](Docs/Img/46.png)
+![46](master/Docs/Img/46.png)
 
 3. update repositories
 
