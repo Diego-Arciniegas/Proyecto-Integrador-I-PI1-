@@ -2,6 +2,6 @@
 Integrantes:
 
 - Diego Stiven Arciniegas Torres
-- José Santiago Benavides Cespedes
+- Iván Santiago Vásquez Ballesteros
 - Diego Alejandro Cardenas Osorno
 - María Fernanda Vargas Carrillo
