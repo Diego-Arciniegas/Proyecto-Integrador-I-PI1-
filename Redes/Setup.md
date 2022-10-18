@@ -8,7 +8,7 @@ sudo nano sources.list
 
 2. comment the second line
 
-![46](master/Docs/Img/46.png)
+<img src="/Docs/Img/46.png"/>
 
 3. update repositories
 
@@ -24,15 +24,17 @@ apt install postfix
 
 5. Press accept in postfix configuration
 
-![47](Docs/Img/47.png)
+<img src="/Docs/Img/47.png"/>
 
 6. Select website
 
-![48](Docs/Img/48.png)
+<img src="/Docs/Img/48.png"/>
 
 7. Add a mail system name
 
-![49](docs/images/49.png)
+```shell
+1. Domain: accesorios.autoupb.com
+```
 
 8. restart postfix
 
@@ -92,27 +94,30 @@ sudo perl /var/www/html/squirrelmail/config/conf.pl
 
 17. Select option 2 of "server settings"
 
-![50](docs/images/50.png)
+<img src="/Docs/Img/50.png"/>
 
 18. Select option 1 of "domain"
 
-![51](docs/images/51.png)
+<img src="/Docs/Img/51.png"/>
 
 19. Write the domain
 
-![52](docs/images/52.png)
+```shell
+1. Domain: accesorios.autoupb.com
+```
+
 
 20. Select option 4 of "general options"
 
-![53](docs/images/53.png)
+<img src="/Docs/Img/53.png"/>
 
 21. Modify options 1,2 and 11
 
-![54](docs/images/54.png)
+<img src="/Docs/Img/54.png"/>
 
 22. Enter the link `localhost/src/login.php`
 
-![55](docs/images/55.png)
+<img src="/Docs/Img/55.png"/>
 
 ### VoIP ASTERISK
 
