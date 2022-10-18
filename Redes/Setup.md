@@ -479,7 +479,7 @@ allow=alaw,ulaw
 [usuario](!)
 type=friend
 host=dynamic
-context=upbmotors
+context=accesoriosautoupb
 
 Extension 101
 [ext101](usuario)
@@ -489,6 +489,12 @@ secret=s1234
 
 Extension 102
 [ext102](usuario)
+username=tortuga
+secret=s1234
+port=5061
+
+Extension 103
+[ext103](usuario)
 username=tortuga
 secret=s1234
 port=5061
@@ -507,17 +513,14 @@ allow=ulaw
 7. configuration extensions.conf
 
 ```
-[partes_local]
-exten => 501,1,Dial(SIP/partes_asterisk/501,120,Tt)
-exten => 502,1,Dial(SIP/partes_asterisk/502,120,Tt)
 
 [local]
 exten => 101,1,Dial(SIP/ext101)
 exten => 102,1,Dial(SIP/ext102)
+exten => 103,1,Dial(SIP/ext103)
 
-[upbmotors]
+[accesoriosautoupb]
 include => local
-include => partes_local
 
 [partes_in]
 include => local
