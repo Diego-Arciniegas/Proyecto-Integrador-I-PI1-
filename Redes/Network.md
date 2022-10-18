@@ -185,6 +185,7 @@ Router(config)#ip dhcp excluded-address 172.17.40.1 172.17.40.20
 
 --- DCHP Ipv6
 
+
 Router(config)#int fa0/1.1
 Router(config-subif)#ipv6 nd other-config-flag
 Router(config-subif)#ipv6 nd managed-config-flag
@@ -240,7 +241,18 @@ Router(config-dhcpv6)#exit
 Router(config)#ip host www.accesorios.autoupb.com 172.17.40.3
 Router(config)#ipv6 host www.accesorios.autoupb.com 2801:0:2e0:a:d::3
 
+--- NAT
 
+Router#confi t
+Router(config)#ip nat inside source static tcp 172.17.40.3 80 10.10.0.1 80 extendable
+Router(config)#ip nat inside source static udp 172.17.40.3 443 10.10.0.1 443 extendable
+Router(config)#ip nat inside source static udp 172.17.40.3 53 10.10.0.1 53 extendable
+Router(config)#ip nat inside source static udp 172.17.40.4 110 10.10.0.1 110 extendable
+Router(config)#ip nat inside source static tcp 172.17.40.4 110 10.10.0.1 110 extendable
+
+--- Save Config
+
+Router#copy running-config startup-config
 ```
 
 ### Switch
