@@ -8,7 +8,7 @@ sudo nano sources.list
 
 2. comment the second line
 
-![46](docs/images/46.png)
+![46](Docs/Img/46.png)
 
 3. update repositories
 
@@ -24,11 +24,11 @@ apt install postfix
 
 5. Press accept in postfix configuration
 
-![47](docs/images/47.png)
+![47](Docs/Img/47.png)
 
 6. Select website
 
-![48](docs/images/48.png)
+![48](Docs/Img/48.png)
 
 7. Add a mail system name
 
