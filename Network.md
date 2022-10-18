@@ -27,22 +27,21 @@
 ## Router ports redirect
 
 | Service/Application | Host (IPv4)    | Host (IPv6)      | Protocol | Port | Router port |
-|---------------------|----------------|------------------|----------|------|-------------|
-| Web catalog (HTTP)  | 192.168.101.18 | 2801:0:2E0:D2::2 | TCP      | 8000 | 80          |
-| Web catalog (HTTPS) | 192.168.101.18 | 2801:0:2E0:D2::2 | TCP      | 8443 | 443         |
-| SMTP                | 192.168.101.18 | 2801:0:2E0:D2::2 | TCP      | 25   | 25          |
-| SMTPS               | 192.168.101.18 | 2801:0:2E0:D2::2 | TCP      | 465  | 465         |
-| IMAP                | 192.168.101.18 | 2801:0:2E0:D2::2 | TCP      | 143  | 143         |
-| IMAP (TLS)          | 192.168.101.18 | 2801:0:2E0:D2::2 | TCP      | 993  | 993         |
-| POP3                | 192.168.101.18 | 2801:0:2E0:D2::2 | TCP      | 110  | 110         |
-| POP3 (TLS)          | 192.168.101.18 | 2801:0:2E0:D2::2 | TCP      | 995  | 995         |
-| DNS                 | 192.168.101.19 | 2801:0:2E0:D2::3 | UDP?     | 53   | 53          |
-| HTTP Proxy          | 192.168.101.20 | 2801:0:2E0:D2::4 | TCP      | 8080 | 8080        |
+|---------------------|:--------------:|------------------|----------|------|-------------|
+| Web catalog (HTTP)  | 172.17.40.3    | 2801:0:2E0:A:D::3| TCP      | 8000 | 80          |
+| Web catalog (HTTPS) | 172.17.40.3    | 2801:0:2E0:A:D::3| TCP      | 8443 | 443         |
+| SMTP                | 172.17.40.4    |2801:0:2E0:A:D::4 | TCP      | 25   | 25          |
+| SMTPS               | 172.17.40.4    | 2801:0:2E0:A:D::4| TCP      | 465  | 465         |
+| IMAP                | 172.17.40.3    | 2801:0:2E0:A:D::3| TCP      | 143  | 143         |
+| IMAP (TLS)          | 172.17.40.3    | 2801:0:2E0:A:D::3| TCP      | 993  | 993         |
+| POP3                | 172.17.40.4    | 2801:0:2E0:A:D::4| TCP      | 110  | 110         |
+| POP3 (TLS)          | 172.17.40.4    | 2801:0:2E0:A:D::4| TCP      | 995  | 995         |
+| DNS                 | 172.17.40.3    | 2801:0:2E0:A:D::3| UDP      | 53   | 53          |
 
 ## Topology
 
 | Computer         | Services                      | VLAN | IPv6             | IPv6 mask | IPv6 Default Gateway     | Primary DNS server IPv6 | Secondary DNS server IPv6 | IPv4           | IPv4 mask | IPv4 Default Gateway | Primary DNS server IPv4 | Secondary DNS server IPv4 |
-|------------------|:-------------------------------:|:------:|:------------------:|:-----------:|:--------------------------:|:------------------:|:----------------:|:----------------:|:-----------:|:----------------------:|:----------------:|
+|------------------|:-------------------------------:|:------:|:------------------:|:-----------:|:--------------------------:|:------------------:|:----------------:|:----------------:|:-----------:|:----------------------:|:----------------:|:----------------:|
 | Debian           | POP3, IMAP, SMTP              | 4  | 2801:0:2E0:A:D::4 | 80         | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 | 2801:0:2E0:A:D::5| 172.17.40.4 | 24        | 172.17.40.1      | 172.17.40.3  |172.17.40.5  |
 | Windows server 1 | HTTP, HTTPS, FTP, FTPS, Primary DNS | 4  | 2801:0:2E0:A:D::3 | 80   | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 |2801:0:2E0:A:D::5| 172.17.40.3 | 24        | 172.17.40.1       | 172.17.40.3  |172.17.40.5  |
 | Windows server 2 | Secundary DNS                 | 4  | 2801:0:2E0:A:D::5 | 80         | 2801:0:2E0:A:D::1        | 2801:0:2E0:A:D::3 |2801:0:2E0:A:D::5| 172.17.40.5 | 24        | 172.17.40.1       | 172.17.40.3  | 172.17.40.5  |
@@ -77,115 +76,203 @@
 ### Router
 
 ```
-enable
-configure terminal
-ip host www.matriz.autoupb.com 192.168.101.19
-ipv6 host www.matriz.autoupb.com 2801:0:2E0:D2::3
-ip name-server 192.168.101.19
-ip domain name matriz.autoupb.com
-ip dhcp pool vlan100ipv4
-network 192.168.101.32 255.255.255.240
-default-router 192.168.101.33
-dns-server 192.168.101.19
-exit
-ipv6 unicast-routing
-ipv6 dhcp pool vlan100ipv6
-dns-server 2801:0:2E0:D1::3
-domain-name matriz.autoupb.com
-exit
-interface GigabitEthernet0/0/1
-ip address 192.168.101.1 255.255.255.240
-ip nat inside
-ip access-group 102 in
-no shutdown
-exit
-interface GigabitEthernet0/0/1.100
-encapsulation dot1Q 100
-ip address 192.168.101.33 255.255.255.240
-ip nat inside
-ip access-group 102 in
-ipv6 address 2801:0:2E0:D1::1/64
-ipv6 nd managed-config-flag
-ipv6 ospf 1 area 0
-ipv6 dhcp server vlan100ipv6
-no shutdown
-exit
-interface GigabitEthernet0/0/1.200
-encapsulation dot1Q 200
-ip address 192.168.101.17 255.255.255.240
-ip nat inside
-ip access-group 102 in
-ipv6 address 2801:0:2E0:D2::1/64
-ipv6 ospf 1 area 0
-no shutdown
-exit
-interface Serial0/1/0
-ip address 10.10.30.2 255.255.255.0
-ip access-group 101 in
-ip nat inside
-ipv6 address 2801:0:2E0:1:0::A/126
-ipv6 ospf 1 area 0
-no shutdown
-exit
-interface Serial0/1/1
-ip address 10.10.40.1 255.255.255.0
-ip access-group 101 in
-ip nat outside
-ipv6 address 2801:0:2E0:1:0::5/126
-ipv6 ospf 1 area 0
-no shutdown
-exit
-router ospf 1
-network 10.10.30.0 0.0.0.255 area 0
-network 10.10.40.0 0.0.0.255 area 0
-network 192.168.101.16 0.0.0.15 area 0
-exit
-ip route 0.0.0.0 0.0.0.0 Serial0/1/1
-ipv6 route ::/0 Serial0/1/1
-ipv6 router ospf 1
-exit
-ip nat inside source static tcp 192.168.101.18 80 10.10.40.3 80
-ip nat inside source static udp 192.168.101.18 443 10.10.40.3 443
-ip nat inside source static udp 192.168.101.19 53 10.10.40.3 53
-ip nat inside source static tcp 192.168.101.18 8080 10.10.40.3 8080
-ip nat inside source static udp 192.168.101.18 8080 10.10.40.3 8080
-access-list 101 permit ospf any any
-access-list 101 permit tcp any any eq 80
-access-list 101 permit tcp any any eq 443
-access-list 101 permit udp any any eq 53
-access-list 101 permit tcp any any eq pop3
-access-list 101 permit tcp any any eq smtp
-access-list 101 permit udp any any eq 110
-access-list 101 permit udp any any eq 25
-access-list 101 permit ip any any 
-access-list 102 permit ip any any
-exit
-copy running-config startup-config
+--- Habilitar Ipv6
+
+Router#config t
+Router(config)#ipv6 unicast-routing
+
+--- Config Serial (s0/0/0)
+
+Router(config)#interface s0/0/0
+Router(config-if)#ip address 10.10.0.1 255.255.255.252
+Router(config-if)#ipv6 enable
+Router(config-if)#ipv6 address 2801:0:2E0:1::1/126
+Router(config-if)#no shutdown
+Router(config-if)exit
+
+--- Config Int (fa0/1)
+
+Router(config)#int fa 0/1
+Router(config-if)#no sh
+Router(config-if)#exit
+
+--- Config Subneting
+
+Router(config)#int fa 0/1.1
+Router(config-subif)#encapsulation dot1Q 1 native
+Router(config-subif)#ip address 172.17.10.1 255.255.255.0
+Router(config-subif)#ipv6 enable
+Router(config-subif)#ipv6 address 2801:0:2E0:A:A::1/80
+Router(config-subif)#no sh
+Router(config-subif)#ip helper-address 172.17.40.2
+Router(config-subif)#exit
+
+Router(config)#int fa 0/1.2
+Router(config-subif)#encapsulation dot1Q 2
+Router(config-subif)#ip address 172.17.20.1 255.255.255.0
+Router(config-subif)#ipv6 enable
+Router(config-subif)#ipv6 address 2801:0:2E0:A:B::1/80
+Router(config-subif)#no sh
+Router(config-subif)#ip helper-address 172.17.40.2
+Router(config-subif)#exit
+
+Router(config)#int fa 0/1.3
+Router(config-subif)#encapsulation dot1Q 3
+Router(config-subif)#ip address 172.17.30.1 255.255.255.0
+Router(config-subif)#ipv6 enable
+Router(config-subif)#ipv6 address 2801:0:2E0:A:C::1/80
+Router(config-subif)#no sh
+Router(config-subif)#ip helper-address 172.17.40.2
+Router(config-subif)#exit
+
+Router(config)#int fa 0/1.4
+Router(config-subif)#encapsulation dot1Q 4
+Router(config-subif)#ip address 172.17.40.1 255.255.255.0
+Router(config-subif)#ipv6 enable
+Router(config-subif)#ipv6 address 2801:0:2E0:A:D::1/80
+Router(config-subif)#no sh
+Router(config-subif)#ip helper-address 172.17.40.2
+Router(config-subif)#exit
+Router(config)#exit
+
+--- OSPF Ipv6 0
+
+Router(config)#interface s0/0/0
+Router(config-if)ipv6 ospf 1 area 0
+Router(config-if)exit
+
+--- OSPF Ipv4
+
+Router #config t
+Router(config)#router ospf 1
+Router(config-router)#network 10.10.0.0 0.0.0.3 area 0
+Router(config-router)#network 172.16.0.0 0.0.255.255 area 0
+Router(config-router)#network 172.17.0.0 0.0.255.255 area 0
+Router(config-router)#network 172.18.0.0 0.0.255.255 area 0
+Router(config-router)#exit
+Router(config)#exit
+
+--- DCHP Ipv4
+
+Router(config)#ip dhcp pool Conexiones
+Router(dhcp-config)#network 172.17.10.0 255.255.255.0
+Router(dhcp-config)#default-router 172.17.10.1
+Router(dhcp-config)#dns-server 172.17.40.3 172.17.40.5
+Router(dhcp-config)#exit
+
+Router(config)#ip dhcp pool Administradores
+Router(dhcp-config)#network 172.17.20.0 255.255.255.0
+Router(dhcp-config)#default-router 172.17.20.1
+Router(dhcp-config)#dns-server 172.17.40.3 172.17.40.5 
+Router(dhcp-config)#exit
+
+Router(config)#ip dhcp pool Usuarios
+Router(dhcp-config)#network 172.17.30.0 255.255.255.0
+Router(dhcp-config)#default-router 172.17.30.1
+Router(dhcp-config)#dns-server 172.17.40.3 172.17.40.5
+Router(dhcp-config)#exit
+
+Router(config)#ip dhcp pool Servidores
+Router(dhcp-config)#network 172.17.40.0 255.255.255.0
+Router(dhcp-config)#default-router 172.17.40.1
+Router(dhcp-config)#dns-server 172.17.40.3 172.17.40.5
+Router(dhcp-config)#exit
+
+Router(config)#ip dhcp excluded-address 172.17.10.1 172.17.10.20
+Router(config)#ip dhcp excluded-address 172.17.20.1 172.17.20.20
+Router(config)#ip dhcp excluded-address 172.17.30.1 172.17.30.20
+Router(config)#ip dhcp excluded-address 172.17.40.1 172.17.40.20
+
+--- DCHP Ipv6
+
+Router(config)#int fa0/1.1
+Router(config-subif)#ipv6 nd other-config-flag
+Router(config-subif)#ipv6 nd managed-config-flag
+Router(config-subif)#ipv6 dhcp server Conexiones
+Router(config-subif)#exit
+
+Router(config)#int fa0/1.2
+Router(config-subif)#ipv6 nd other-config-flag
+Router(config-subif)#ipv6 nd managed-config-flag
+Router(config-subif)#ipv6 dhcp server Administradores
+Router(config-subif)#exit
+
+Router(config)#int fa0/1.3
+Router(config-subif)#ipv6 nd other-config-flag
+Router(config-subif)#ipv6 nd managed-config-flag
+Router(config-subif)#ipv6 dhcp server Usuarios
+Router(config-subif)#exit
+
+Router(config)#int fa0/1.4
+Router(config-subif)#ipv6 nd other-config-flag
+Router(config-subif)#ipv6 nd managed-config-flag
+Router(config-subif)#ipv6 dhcp server Servidores
+Router(config-subif)#exit
+
+Router(config)#ipv6 dhcp pool Conexiones
+Router(config-dhcpv6)#address prefix 2801:0:2E0:A:A::1/80
+Router(config-dhcpv6)#dns-server 2801:0:2E0:A:D::3
+Router(config-dhcpv6)#dns-server 2801:0:2E0:A:D::5
+Router(config-dhcpv6)#domain-name accesorios.autoupb.com
+Router(config-dhcpv6)#exit
+
+Router(config)#ipv6 dhcp pool Administradores
+Router(config-dhcpv6)#address prefix 2801:0:2E0:A:B::1/80
+Router(config-dhcpv6)#dns-server 2801:0:2E0:A:D::3
+Router(config-dhcpv6)#dns-server 2801:0:2E0:A:D::5
+Router(config-dhcpv6)#domain-name accesorios.autoupb.com
+Router(config-dhcpv6)#exit
+
+Router(config)#ipv6 dhcp pool Usuarios
+Router(config-dhcpv6)#address prefix 2801:0:2E0:A:C::1/80
+Router(config-dhcpv6)#dns-server 2801:0:2E0:A:D::3
+Router(config-dhcpv6)#dns-server 2801:0:2E0:A:D::5
+Router(config-dhcpv6)#domain-name accesorios.autoupb.com
+Router(config-dhcpv6)#exit
+
+Router(config)#ipv6 dhcp pool Servidores
+Router(config-dhcpv6)#address prefix 2801:0:2E0:A:D::1/80
+Router(config-dhcpv6)#dns-server 2801:0:2E0:A:D::3
+Router(config-dhcpv6)#dns-server 2801:0:2E0:A:D::5
+Router(config-dhcpv6)#domain-name accesorios.autoupb.com
+Router(config-dhcpv6)#exit
+
+Router(config)#ip host www.accesorios.autoupb.com 172.17.40.3
+Router(config)#ipv6 host www.accesorios.autoupb.com 2801:0:2e0:a:d::3
+
 
 ```
 
 ### Switch
 
 ```
-enable 
-configure terminal 
-vlan 100
-name empleados
-exit
-vlan 200
-name servidores
-exit
-interface range fastEthernet 0/10-17
-switchport mode access 
-switchport access vlan 100
-exit
-interface range fastEthernet 0/1-3
-switchport mode access
-switchport access vlan 200
-exit
-interface gigabitEthernet 0/1
-switchport mode trunk 
-switchport trunk allowed vlan 100,200
-exit
-copy running-config startup-config
+Switch(config)#vlan
+Switch(config-vlan)#vlan 2
+Switch(config-vlan)#name Administradores
+Switch(config-vlan)#vlan 3
+Switch(config-vlan)#name Usuarios
+Switch(config-vlan)#vlan 4
+Switch(config-vlan)#name Servidores
+Switch(config)#int range  fa 0/3-5
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 2
+Switch(config-if-range)#exit
+Switch(config)#int range fa 0/6-8
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 3
+Switch(config-if-range)#exit
+Switch(config)#int range fa 0/9-11
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 4
+Switch(config-if-range)#exit
+Switch(config)#int range fa 0/23-24
+Switch(config-if-range)#switchport mode trunk
+Switch(config-if-range)#switchport trunk allowed vlan 1-4
+Switch(config-if-range)#exit
+Switch(config)#int vlan1
+Switch(config-if)#ip address 172.17.10.2 255.255.255.0
+Switch(config-if)#no sh
+Switch(config-if)#exit
+Switch(config)#exit
+
 ```
