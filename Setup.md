@@ -518,5 +518,5 @@ include => partes_local
 include => local
 ```
 
-8. install jami
-9. add user SIP jami
+8. install Zoiper
+9. add user SIP Zoiper
