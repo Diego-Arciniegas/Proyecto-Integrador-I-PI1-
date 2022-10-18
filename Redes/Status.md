@@ -1,9 +1,9 @@
-## Primary DNS
+# Primary DNS
 
 
 1. Direct Search Zone
 
-<img src="/Docs/Img/56.jpg"/>}
+<img src="/Docs/Img/56.jpg"/>
 
 2. Indirect Search Zone (IPv4)
 <img src="/Docs/Img/57.jpg"/>
@@ -26,7 +26,7 @@ nslookup 'domain name or ip'
 ```
 <img src="/Docs/Img/60.jpg"/><img src="/Docs/Img/63.jpg"/>
 
-## Secondary DNS
+# Secondary DNS
 
 1. Direct Search Zone
 <img src="/Docs/Img/61.jpg"/>
@@ -45,7 +45,7 @@ nslookup 'domain name or ip'
 ```
 <img src="/Docs/Img/60.jpg"/><img src="/Docs/Img/63.jpg"/>
 
-## Ftp (Ftps)
+# Ftp (Ftps)
 
 1. General Configuration `Ftp (Ftps)`
 
@@ -58,7 +58,7 @@ ftp 'ip'
 ```
 <img src="/Docs/Img/65.jpg"/>
 
-## Http (Https)
+# Http (Https)
 
 1. General Configuration `Http (Https)`
 <img src="/Docs/Img/67.jpg"/>
@@ -71,7 +71,7 @@ https://www.accesorios.autoupb.com
 <img src="/Docs/Img/66.jpg"/>
 
 
-## Correo
+# Correo
 
 1. Search in the Search Engine
 
@@ -84,7 +84,7 @@ localhost/squirrelmail/src/login.php
 <img src="/Docs/Img/69.jpg"/>
 
 
-## VoIP
+# VoIP
 
 1. Enter Asterisk command console `See Users`
 ```shell
