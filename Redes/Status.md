@@ -108,9 +108,9 @@ sip show peers
 
 5. Call Conection
 
-5.1. `Ext101` 
+    `Ext101` 
 <img src="/Docs/Img/71.jpg"/>
 
-5.2. `Ext101`
+    `Ext102`
 <img src="/Docs/Img/73.png"/>
 
