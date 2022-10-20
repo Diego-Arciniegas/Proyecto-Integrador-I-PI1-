@@ -1,5 +1,7 @@
 import './Home.css';
 
+import TFooter from '../templates/Footer/TFooter.js';
+
 function Home(){
 
     return(
@@ -64,27 +66,8 @@ function Home(){
                     <h1>INSTALACIONES</h1>
                 </div>
             </div>
-
-            <footer>
-                <div className="row footer">
-                    <div className="col-8">
-                        <div className="row footer">
-                            <div className="col-6 ">
-                                <h5 className="footer-title">Terminos y condiciones</h5>
-                            </div>
-                            <div className="col-6 ">
-                                <h5 className="footer-title">Ubicacion</h5>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-4 icons">
-                        <img src="./img/twitter.png" alt=""/>
-                        <img src="./img/instagram.png" alt=""/>
-                        <img src="./img/facebook.png" alt=""/>
-                    </div>
-                </div>
-            </footer>
+            
+            <TFooter></TFooter>
         </div>
     )
 }
