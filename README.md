@@ -7,8 +7,8 @@
 ## Documentation
 
 - [API](https://github.com/Diego-Arciniegas/Proyecto-Integrador-I-PI1-/tree/master/api)
-- [Docs]()
-- [Network](https://github.com/Diego-Arciniegas/Proyecto-Integrador-I-PI1-/blob/master/Network.md)
+- [Docs](https://github.com/Diego-Arciniegas/Proyecto-Integrador-I-PI1-/tree/master/Docs)
+- [Network](https://github.com/Diego-Arciniegas/Proyecto-Integrador-I-PI1-/tree/master/Redes)
 
 ## Integrantes:
 
