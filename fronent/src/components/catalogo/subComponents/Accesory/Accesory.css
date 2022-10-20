@@ -1,0 +1,30 @@
+.price{
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+}
+.price h4 span{
+    margin-left: 20px;
+}
+.discount{
+    color: red;
+}
+.description{
+    font-weight: 500;
+}
+.accesory{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    margin: 5px 5px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.accesory img{
+    width: 100%;
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 250px;
+}
