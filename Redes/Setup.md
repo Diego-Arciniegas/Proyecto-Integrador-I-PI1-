@@ -531,7 +531,6 @@ allow=ulaw
 7. configuration extensions.conf
 
 ```
-
 [local]
 exten => 101,1,Dial(SIP/ext101)
 exten => 102,1,Dial(SIP/ext102)
@@ -543,7 +542,13 @@ exten => 202,1,Dial(SIP/partes_asterisk/202,120,Tt)
 
 [accesoriosautoupb]
 include => local
-include => concesionario
+include => concesionario_local
+
+[partes_in]
+include => local
+
+[concesionario_in]
+include => local
 
 ```
 
