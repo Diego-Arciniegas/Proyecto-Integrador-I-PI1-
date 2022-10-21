@@ -439,21 +439,27 @@ radiuscfg => /etc/radcli/radiusclient.congf
 6. configuration sip.conf
 
 ```
-[general]
-context=public                  ; Default context for incoming calls. Defaults to 'default'
-allowoverlap=no                 ; Disable overlap dialing support. (Default is yes)
-udpbindaddr=0.0.0.0             ; IP address to bind UDP listen socket to (0.0.0.0 binds to all)
-tcpenable=no                    ; Enable server for incoming TCP connections (default is no)
-tcpbindaddr=0.0.0.0             ; IP address for TCP server to bind to (0.0.0.0 binds to all interfaces)
-transport=udp                   ; Set the default transports.  The order determines the primary default transport.
-srvlookup=yes                   ; Enable DNS SRV lookups on outbound calls
+[general]               ; Permite definir las opciones generales
+context=public          ; Default context for incoming calls. Defaults to 'default'
+allowoverlap=no         ; Desactiva soporte para marcación superpuesta
+                      ; bindaddr= En que dirección de mi servidor debería escuchar SIP
+udpbindaddr=0.0.0.0     ; Dirección de escucha SIP para el protocolo UDP
+                        ; (0.0.0.0 escucha por todos los interface del servidor)
+tcpenable=no            ; Por defecto las conexiones UDP están habilitadas
+                        ; y las TCP desactivadas en el servidor
+tcpbindaddr=0.0.0.0     ; Dirección de escucha SIP para el protocolo TCP
+transport=udp           ; Protocolo de transporte por defecto
+srvlookup=yes           ; Activa el enrutamiento de llamadas salientes en base a nombresDNS
 
-register => upbmotors_asterisk:password@192.168.1.31/partes_asterisk
+register => accesoriosautoupb:1234@172.16.40.5/concesionario
 
-qualify=yes
-language=es
-disallow=all
-allow=alaw,ulaw
+
+
+qualify=yes             ; Permite monitorear la conexción con los teléfonos VoIP
+language=es             ; Idioma por defecto para todos los usuarios
+disallow=all            ; Desactivar todos los codificadores
+allow= ulaw, alaw              ; Permitir codificadores en orden de preferencia
+
 
 [authentication]
 [basic-options](!)                ; a template
@@ -474,12 +480,13 @@ allow=alaw,ulaw
         allow=ulaw
 [ulaw-phone](!)                   ; and another one for ulaw-only
         disallow=all
-        allow=ulaw
+        allow=ulaw
 
 [usuario](!)
 type=friend
 host=dynamic
 context=accesoriosautoupb
+
 
 Extension 101
 [ext101](usuario)
@@ -495,14 +502,25 @@ port=5061
 
 Extension 103
 [ext103](usuario)
-username=tortuga
+username=perro
 secret=s1234
 port=5061
 
+
 [partes_asterisk]
 type=friend
-secret=password
+secret=1234
 context=partes_in
+host=dynamic
+qualify=yes
+dtmfmode=rfc2833
+disallow=all
+allow=ulaw
+
+[concesionario]
+type=friend
+secret=1234
+context=concesionario_in
 host=dynamic
 qualify=yes
 dtmfmode=rfc2833
@@ -519,11 +537,14 @@ exten => 101,1,Dial(SIP/ext101)
 exten => 102,1,Dial(SIP/ext102)
 exten => 103,1,Dial(SIP/ext103)
 
+[concesionario_local]
+exten => 201,1,Dial(SIP/partes_asterisk/201,120,Tt)
+exten => 202,1,Dial(SIP/partes_asterisk/202,120,Tt)
+
 [accesoriosautoupb]
 include => local
+include => concesionario
 
-[partes_in]
-include => local
 ```
 
 8. install Zoiper
