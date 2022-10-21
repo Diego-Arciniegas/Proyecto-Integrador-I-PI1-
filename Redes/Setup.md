@@ -1,6 +1,6 @@
 ### Mail
 
-1. Access the file `sources.list`
+1. Access the file `/etc/apt/sources.list`
 
 ```shell
 sudo nano sources.list
