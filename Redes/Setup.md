@@ -115,7 +115,7 @@ sudo perl /var/www/html/squirrelmail/config/conf.pl
 
 <img src="/Docs/Img/54.png"/>
 
-22. Enter the link `localhost/src/login.php`
+22. Enter the link `http://localhost/squirrelmail/src/login.php`
 
 <img src="/Docs/Img/55.png"/>
 
