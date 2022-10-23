@@ -29,7 +29,7 @@ function Accesory(props){
             try{
                 await axios.post(`${base_url}/users/${id_user}/shopping_cart`);
                 var {data} = await axios.get(`${base_url}/users/${id_user}/shopping_cart/accessories/${id_accessory}`);
-                if(data.accessory == null){
+                if(data.accesory == null){
                     await axios.post(`${base_url}/users/${id_user}/shopping_cart/accessories/${id_accessory}`);
                     alert('Producto agregado al carrito de compra');
                 }else{
