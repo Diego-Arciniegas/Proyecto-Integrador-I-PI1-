@@ -69,6 +69,51 @@ const getShoppingCart = async (req, res)=>{
     }
 }
 
+const getShoppingCartAccesories = async (req, res)=>{
+    try{
+
+        var accessories = await models.Accessories.findAll({
+            include: {
+                model: models.Shopping_carts,
+                where: {
+                    id_user: req.params.id_user
+                }
+            }
+        });
+
+        res.status(200).json({error: 0, accessories});
+
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
+
+const getOneShoppingCartAccesory = async (req, res)=>{
+    try{
+
+        var accesory = await models.Accessories.findOne({
+            include: {
+                model: models.Shopping_carts,
+                where: {
+                    id_user: req.params.id_user
+                }
+            },raw: true, nest: true,
+            where: {
+                id_accessory: req.params.id_accessory
+            }
+        });
+
+        if(accesory===null) return res.status(200).json({error: 200, accesory});
+        accesory.quantity = accesory.shopping_carts.shopping_cart_accessories.quantity;
+        delete accesory.shopping_carts;
+
+        res.status(200).json({error: 0, accesory});
+
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
+
 // Eliminar el carrito de compra
 const deleteShoppingCart = async (req, res)=>{
     try{
@@ -165,6 +210,8 @@ const deleteAccesory = async (req, res)=>{
 module.exports = {
     addShoppingCart,
     getShoppingCart,
+    getOneShoppingCartAccesory,
+    getShoppingCartAccesories,
     deleteShoppingCart,
     addAccessory,
     deleteAccesory
