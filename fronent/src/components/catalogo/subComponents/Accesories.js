@@ -15,10 +15,10 @@ function Accesories(props){
 
     useEffect(()=>{
         handleGetAccesories();
-    }, [props.id_user]);
+    }, [props.auth]);
 
     var handleGetAccesories = async ()=>{
-        var id_user = (id_user)?`id_user=${props.id_user}`:null;
+        var id_user = (props.auth)?`id_user=${props.auth.id_user}`:null;
         var accesory_name = (searchParams.get('accessory'))?`like=name_accessory,${searchParams.get('accessory')}`:null;
         var order_query = searchParams.get('order') || 'id_accessory';
         order_query = order_query.split(',');

@@ -55,7 +55,7 @@ function Busqueda(){
                             </div>
                         </div>
                         
-                        <Accesories id_user={auth}/>
+                        <Accesories id_user={auth.id_user}/>
                     </div>
                 </div>
             </div>

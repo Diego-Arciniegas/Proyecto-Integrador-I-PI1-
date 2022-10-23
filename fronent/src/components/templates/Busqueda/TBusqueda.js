@@ -4,9 +4,9 @@ import {useNavigate, useSearchParams} from 'react-router-dom';
 import {useState} from 'react';
 import LoginModal from './LoginModal/LoginModal.js';
 
-function Contenedor(){
+function Contenedor(props){
     
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const [name_accessory, setName_accessory] = useState('');
 
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ function Contenedor(){
         navigate(`/accessories?accessory=${name_accessory}`);
         window.location.reload();
     }
-
+    
     return(
         <div className="contenedor">
             <div className="barra-ayudas">
@@ -35,20 +35,29 @@ function Contenedor(){
                         <p>Mi cuenta </p>
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <div className="mi-cuenta-logs">
-                            <button type="button" className="btn" id="login" data-bs-toggle="modal" data-bs-target="#login-modal">
-                                Iniciar sesion
-                            </button>
-                            <button type="button" className="btn" id="register" data-bs-toggle="modal" data-bs-target="#login-modal">
-                                Registrarse
-                            </button>
-                        </div>
-                    <li><hr className="dropdown-divider divisor"/></li>
-                    <li><a className="dropdown-item" href="#">Mis favoritos</a></li>
-                    <li><a className="dropdown-item" href="#">Mis Pedidos</a></li>
-                    <li><a className="dropdown-item" href="#">Metodos de pago</a></li>
-                    <li><a className="dropdown-item" href="#">Garantias</a></li>
-                    <li><a className="dropdown-item" href="#">Ofertas</a></li>
+                        {(props.auth!==null) 
+                            ?
+                            <div className="mi-cuenta-logs">
+                                <i className="bi bi-person-circle"></i>
+                                <p className="bold-carrito">Bienvenido {props.auth.name_user}</p>
+                            </div>
+                            :
+                            <div className="mi-cuenta-logs">
+                                <button type="button" className="btn" id="login" data-bs-toggle="modal" data-bs-target="#login-modal">
+                                    Iniciar sesion
+                                </button>
+                                <button type="button" className="btn" id="register" data-bs-toggle="modal" data-bs-target="#login-modal">
+                                    Registrarse
+                                </button>
+                            </div>
+                        }
+                        
+                        <li><hr className="dropdown-divider divisor"/></li>
+                        <li><a className="dropdown-item" href="#">Mis favoritos</a></li>
+                        <li><a className="dropdown-item" href="#">Mis Pedidos</a></li>
+                        <li><a className="dropdown-item" href="#">Metodos de pago</a></li>
+                        <li><a className="dropdown-item" href="#">Garantias</a></li>
+                        <li><a className="dropdown-item" href="#">Ofertas</a></li>
                     </ul>
                 </div>
             </div>

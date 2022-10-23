@@ -25,7 +25,7 @@ function Favoritos(){
 
     const handleGetAccessories = async ()=>{
         if(auth){
-            var {data} = await axios.get(`${url_get_accessories}/${auth}/favorites`);
+            var {data} = await axios.get(`${url_get_accessories}/${auth.id_user}/favorites`);
             setAccessories(data);
         }
     }
@@ -33,7 +33,7 @@ function Favoritos(){
     return(
         <div className='Favoritos'>
             <THeader></THeader>
-            <TBusqueda></TBusqueda>
+            <TBusqueda auth={auth}></TBusqueda>
             <div className="row guardados-container">
                 <div className="col-10">
                     <div className="box mt-3 mb-3 ms-3">
@@ -47,7 +47,7 @@ function Favoritos(){
                                     <Fragment key={accesory.id_accessory}>
                                         <li><hr className="dropdown-divider divisor"/></li>
                                         <Accesory
-                                            id_user={auth}
+                                            id_user={auth.id_user}
                                             id_accessory={accesory.id_accessory}
                                             image_path={accesory.id_accessory}
                                             price={accesory.price}

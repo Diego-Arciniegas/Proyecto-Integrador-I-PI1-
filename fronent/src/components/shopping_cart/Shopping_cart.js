@@ -21,11 +21,11 @@ function Shopping_cart(){
     
     useEffect(()=>{
         handleGetShopping_cart();
-    }, [auth])
+    }, [auth]);
 
     const handleGetShopping_cart = async ()=>{
         if(auth){
-            var {data} = await axios.get(`${url_get_accessories}/${auth}/shopping_cart`);
+            var {data} = await axios.get(`${url_get_accessories}/${auth.id_user}/shopping_cart`);
             setAccessories(data.accessories);
             setTotal_price(data.price);
         }
@@ -34,7 +34,7 @@ function Shopping_cart(){
     return(
         <div className='carro'>
             <THeader/>
-            <TBusqueda/>
+            <TBusqueda auth={auth}/>
             <div className="row guardados-container">
                 <div className="col-9">
                     <div className="box mt-3 mb-3 ms-3">
@@ -42,13 +42,13 @@ function Shopping_cart(){
                             <li>
                                 <h1>Carrito</h1>
                             </li>
-                            {accessories.map((accesory,i)=>(
+                            {accessories.map(accesory=>(
                                 <Fragment key={accesory.id_accessory}>
                                     <li>
                                         <hr className="dropdown-divider divisor"/>
                                     </li>
                                     <Accesory
-                                        id_user={auth}
+                                        id_user={auth.id_user}
                                         id_accessory={accesory.id_accessory}
                                         image_path={accesory.id_accessory}
                                         price={accesory.price}

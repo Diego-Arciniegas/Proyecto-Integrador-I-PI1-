@@ -5,13 +5,13 @@ const base_url = process.env.REACT_APP_BASE_URL;
 
 function useAuth(){
     const url_auth = `${base_url}/auth`;
-    const [idUser, setIdUser] = useState(false);
+    const [user, setUser] = useState(null);
 
     useEffect(()=>{
         return ()=>{
             getAuth();
         }
-    });
+    }, []);
 
     const getAuth = async()=>{
         try{
@@ -21,13 +21,14 @@ function useAuth(){
                     Authorization: `Bearer ${token}`
                 }
             });
-            setIdUser(data.decoded.id_user);
+            var {data} = await axios.get(`${base_url}/users/${data.decoded.id_user}`);
+            setUser(data);
         }catch(error){
-            setIdUser(false);
+            setUser(null);
         }
     }
 
-    return idUser;
+    return user;
 }
 
 export default useAuth;
