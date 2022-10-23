@@ -13,9 +13,7 @@ const Accessories = db.define('accessories', {
     discount: DataTypes.INTEGER,
     stock: DataTypes.INTEGER,
     available: DataTypes.BOOLEAN,
-    image_accesory_path: DataTypes.STRING,
-    id_car_model: DataTypes.INTEGER,
-    id_business: DataTypes.INTEGER
+    image_accesory_path: DataTypes.STRING
 }, {
     freezeTableName: true,
     timestamps: false

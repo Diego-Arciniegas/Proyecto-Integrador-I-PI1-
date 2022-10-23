@@ -1,7 +1,5 @@
 const Accessories = require('./models/Accessories.js');
 const Address = require('./models/Address.js');
-const Business = require('./models/Business.js');
-const Car_models = require('./models/Car_models.js');
 const Order_accessories = require('./models/Order_accessories.js');
 const Orders = require('./models/Orders.js');
 const Payment_methods = require('./models/Payment_methods.js');
@@ -13,8 +11,6 @@ const Accessories_movement_history = require('./models/Accessories_movement_hist
 const Accessories_price_history = require('./models/Accessories_price_history.js');
 const Favorite_accessories = require('./models/Favorite_accessories.js');
 
-Accessories.belongsTo(Car_models, {foreignKey: 'id_car_model'});
-Accessories.belongsTo(Business, {foreignKey: 'id_business'});
 
 Accessories.belongsToMany(Orders, {
     through: Order_accessories,
@@ -37,8 +33,6 @@ Shopping_carts.belongsToMany(Accessories, {
     foreignKey: 'id_shopping_cart'
 });
 
-Business.belongsTo(Address, {foreignKey: 'id_address'});
-Address.hasMany(Business, {foreignKey: 'id_address'});
 
 Users.belongsTo(Address, {foreignKey: 'id_address'});
 Address.hasMany(Users, {foreignKey: 'id_address'});
@@ -59,8 +53,6 @@ Accessories.hasMany(Favorite_accessories, {foreignKey: 'id_accessory'});
 module.exports = {
     Accessories,
     Address,
-    Business,
-    Car_models,
     Order_accessories,
     Orders,
     Payment_methods,
