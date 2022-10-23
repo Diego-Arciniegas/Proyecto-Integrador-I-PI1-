@@ -1,0 +1,17 @@
+header{
+    margin: 0px;
+    width: 100%;
+    background-color: black;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    height: 65px;
+}
+header h2{
+    color: white;
+    margin-left: 30px;
+}
+header #logo{
+    height: 50px;
+    margin-left: 20px;
+}
