@@ -15,7 +15,7 @@ function MegaOfertas(props){
     }, [props.auth]);
 
     var handleGetAccesories = async ()=>{
-        var url_id_user = (props.auth ? `id_user=${props.auth.id_user}&` : '');
+        var url_id_user = (props.auth) ? `id_user=${props.auth.id_user}&` : '';
         var {data} = await axios.get(`${url_get_accessories}?${url_id_user}order=discount,DESC`);
         setAccesories(data.slice(0,10));
     }
@@ -33,7 +33,7 @@ function MegaOfertas(props){
                             <Accesory
                                 className="col"
                                 key={accesory.id_accessory}
-                                id_user={props.auth.id_user}
+                                user={props.auth}
                                 id_accessory={accesory.id_accessory}
                                 name={accesory.name_accessory}
                                 price={accesory.price}

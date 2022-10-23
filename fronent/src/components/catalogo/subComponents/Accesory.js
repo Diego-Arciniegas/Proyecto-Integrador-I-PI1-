@@ -6,7 +6,7 @@ const base_url = process.env.REACT_APP_BASE_URL;
 
 function Accesory(props){
 
-    const {id_user, id_accessory, image_path, price, discount, name, _favorite, className} = props;
+    const {user, id_accessory, image_path, price, discount, name, _favorite, className} = props;
     const [favorite, setFavorite] = useState(0);
 
     useEffect(()=>{
@@ -14,23 +14,23 @@ function Accesory(props){
     }, [props._favorite]);
 
     var handleSetFavorite = async ()=>{
-        if(id_user){
+        if(user){
             if(favorite){
-                await axios.delete(`${base_url}/users/${id_user}/favorites/${id_accessory}`);
+                await axios.delete(`${base_url}/users/${user.id_user}/favorites/${id_accessory}`);
             }else{
-                await axios.post(`${base_url}/users/${id_user}/favorites/${id_accessory}`);
+                await axios.post(`${base_url}/users/${user.id_user}/favorites/${id_accessory}`);
             }
             setFavorite(!favorite);
         }
     }
 
     var handleAddToShopping = async ()=>{
-        if(id_user){
+        if(user){
             try{
-                await axios.post(`${base_url}/users/${id_user}/shopping_cart`);
-                var {data} = await axios.get(`${base_url}/users/${id_user}/shopping_cart/accessories/${id_accessory}`);
+                await axios.post(`${base_url}/users/${user.id_user}/shopping_cart`);
+                var {data} = await axios.get(`${base_url}/users/${user.id_user}/shopping_cart/accessories/${id_accessory}`);
                 if(data.accesory == null){
-                    await axios.post(`${base_url}/users/${id_user}/shopping_cart/accessories/${id_accessory}`);
+                    await axios.post(`${base_url}/users/${user.id_user}/shopping_cart/accessories/${id_accessory}`);
                     alert('Producto agregado al carrito de compra');
                 }else{
                     alert('Producto ya agregado al carrito de compra');

@@ -38,7 +38,7 @@ function Accesories(props){
                     <Accesory
                         className="accesory"
                         key={accesory.id_accessory}
-                        id_user={props.id_user}
+                        user={props.auth}
                         id_accessory={accesory.id_accessory}
                         name={accesory.name_accessory}
                         price={accesory.price}
