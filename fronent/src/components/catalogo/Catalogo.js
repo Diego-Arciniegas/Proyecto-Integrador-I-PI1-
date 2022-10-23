@@ -1,23 +1,24 @@
 
 import './Catalogo.css';
 
-import Accesory from './subComponents/Accesory/Accesory.js';
+import Categorias  from './subComponents/Categorias.js';
+import Accesories  from './subComponents/Accesories.js';
+import MegaOfertas from './subComponents/MegaOfertas.js';
 
-import Contenedor from './subComponents/Contenedor/Contenedor.js';
-import LoginModal from './subComponents/LoginModal/LoginModal.js';
-import Categorias from './subComponents/Categorias/Categorias.js';
-import Accesories from './subComponents/Accesories/Accesories.js';
-import TFooter from '../templates/Footer/TFooter.js';
+import IBusqueda   from '../templates/Busqueda/TBusqueda.js';
+import THeader     from '../templates/Header/THeader.js';
+import TFooter     from '../templates/Footer/TFooter.js';
+
+import useAuth     from '../../hooks/useAuth.js';
 
 function Catalogo(){
+
+    const auth = useAuth();
+
     return(
         <div>
-            <header className="primary">
-                <img id="logo" src="./img/30.PNG" alt=""/>
-                <h2>CarParts & Accesories</h2>
-            </header>
-            <Contenedor></Contenedor>
-            <LoginModal></LoginModal>
+            <THeader></THeader>
+            <IBusqueda></IBusqueda>
             <div className="row ofertas-categorias">
                 <Categorias></Categorias>
                 <div className="col">
@@ -35,26 +36,7 @@ function Catalogo(){
                             <p>Servicio 24/7</p>
                         </div>
                     </div>
-                    <div class="row mega-ofertas">
-                        <div class="megaofertas-title">
-                            <h4>Mega</h4>
-                            <h4 class="ofertas-title">Ofertas</h4>
-                        </div>
-                        <div class="row col-offers">
-                            <div className='col carrusel'>
-                                <Accesory image_path='24' price='85800' discount='15'
-                                description='Funda elegante de peluche vinotinto' />
-                                <Accesory image_path='25' price='85800' discount='15'
-                                description='Funda elegante de peluche vinotinto' />
-                                <Accesory image_path='26' price='85800' discount='15'
-                                description='Funda elegante de peluche vinotinto' />
-                                <Accesory image_path='27' price='85800' discount='15'
-                                description='Funda elegante de peluche vinotinto' />
-                                <Accesory image_path='23' price='85800' discount='15'
-                                description='Funda elegante de peluche vinotinto' />
-                            </div>
-                        </div>
-                    </div>
+                    <MegaOfertas id_user={auth}/>
                     <div className="row suggestions">
                         <div className="col line">
                         </div>
@@ -66,7 +48,7 @@ function Catalogo(){
                     </div>
                 </div>
                 
-                <Accesories></Accesories>
+                <Accesories id_user={auth}/>
                 <TFooter></TFooter>
             </div>
         </div>

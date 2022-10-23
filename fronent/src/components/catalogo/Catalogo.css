@@ -2,83 +2,7 @@
 body{
     background-color: #D9D9D9;
 }
-header{
-    margin: 0px;
-    width: 100%;
-    background-color: black;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    height: 65px;
-}
-header h2{
-    color: white;
-    margin-left: 30px;
-}
-header #logo{
-    height: 50px;
-    margin-left: 20px;
-}
-.contenedor{
-    background-color: white;
-}
-.barra-ayudas{
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 5vw;
-    width: 100%;
-}
-.barra-ayudas p {
-    margin: auto 10px;
-    font-size: 12px;
-}
-.fav {
-    font-size: 12px;
-}
-.user{
-    font-size: 15px;
-}
-.input-container-search{
-    width: 40%;
-    margin: 10px 0px;
 
-}
-.inp-buscador{
-    border-radius: 8px;
-    border-width: 1px 0px 1px 1px;
-    border-color: #245B7E;
-    border-width: 3px;
-    height: 3vw;
-    min-height: 35px;
-}
-.buscador{
-    color: white;
-    border-width: 1px 1px 1px 0px;
-    border-color: #245B7E;
-    border-width: 3px;
-    background-color: #245B7E;
-    border-radius: 8px;
-    height: 3vw;
-    min-height: 35px;
-}
-.buscador i{
-    font-size: 20px;
-}
-.contenedor-buscador{
-    width: 100%;
-    background-color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-.carrito{
-    font-size: max(2.7vw, 35px);
-    align-items: center;
-    margin-left: 10px;
-}
-.carrito:hover{
-    color: #245B7E;
-}
 .category{
     background-color: white;
     border-radius: 15px;
@@ -238,12 +162,17 @@ header #logo{
     border-radius: 20px;
 }
 .table-accesories{
-    
-    padding: 10px 10px 10px 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-wrap: nowrap;
+    --grid-layout-gap: 10px;
+    --grid-column-count: 6;
+    --grid-item--min-width: 200px;
+
+    --gap-count: calc(var(--grid-column-count) - 1);
+    --total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
+    --grid-item--max-width: 220px;
+  
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr));
+    grid-gap: var(--grid-layout-gap);
 }
 .accesories{
     
@@ -268,7 +197,7 @@ width: 100%;
 min-width: 200px;
 min-height: 200px;
 max-width: 250px;
-
+max-height: 200px;
 }
 .carrusel::-webkit-scrollbar-thumb {
     height: 6px;
@@ -343,64 +272,6 @@ footer{
     font-size: min(1.5vw, 18px);
     margin: 5px;
 }
-.nav-dropdown{
-    display: flex;
-    align-items: center;
-    background: transparent;
-    color: black;
-    border: none;
-    height: 30px;
-}
-.nav-dropdown::selection{
-    background-color: #245B7E;
-}
-.nav-item.dropdown.show a {
-    color: blue !important;
-}
-
-.navbar .nav > li.dropdown.open.active > a:hover, 
-.navbar .nav > li.dropdown.open > a
-{
-   color: #fff;
-   background-color: #b91773;
-   border-color: #fff;
-}
-.dropdown-toggle::after {
-    content: none;
-}
-.mi-cuenta-logs{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-.mi-cuenta-logs button{
-    width: 143px;
-    margin: 0px 5px;
-}
-#login{
-    border-width: 4px;
-    border-color: #245B7E;
-    color: #245B7E;
-    font-weight: 600;
-    border-radius: 10px;
-}
-#register{
-    background-color: #245B7E;
-    color: white;
-    font-weight: 600;
-    border-radius: 10px;
-}
-.dropdown ul{
-    border-radius: 10px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #245B7E;
-}
-.divisor{
-    border-width: 2px;
-    border-color: #245B7E;
-    margin: 10px 15px;
-}
 .modal-header {
     display: flex;
     flex-shrink: 0;
@@ -417,8 +288,20 @@ footer{
     flex-direction: column;
 }
 .column-form input{
-margin-top: 15px;
-
+    margin-top: 10px;
+    margin-bottom: 5px;
+    height: 20px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    font-size: 15px;
+    padding: 15px 8.5px;
+    color: black;
+}
+.column-form input::placeholder{
+    font-size: 15px;
+    color: gray;
 }
 .margin-footer-modal{
     margin-top: 15px;
@@ -454,6 +337,8 @@ margin-top: 15px;
 .inputs-groups input{
     width: 48%;
 }
+
+
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
