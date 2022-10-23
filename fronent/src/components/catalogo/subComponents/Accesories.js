@@ -4,21 +4,29 @@ import Accesory from './Accesory.js';
 
 import {useEffect, useState} from 'react';
 import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
 
 const base_url = process.env.REACT_APP_BASE_URL;
 
 function Accesories(props){
-
     const url_get_accessories = `${base_url}/accessories`;
     const [accesories, setAccesories] = useState([]);
+    const [searchParams] = useSearchParams();
 
     useEffect(()=>{
         handleGetAccesories();
     }, [props.id_user]);
 
     var handleGetAccesories = async ()=>{
-        var url_id_user = (props.id_user ? `id_user=${props.id_user}` : '');
-        var {data} = await axios.get(`${url_get_accessories}?${url_id_user}`);
+        var id_user = (id_user)?`id_user=${props.id_user}`:null;
+        var accesory_name = (searchParams.get('accessory'))?`like=name_accessory,${searchParams.get('accessory')}`:null;
+        var order_query = searchParams.get('order') || 'id_accessory';
+        order_query = order_query.split(',');
+        var order = `order=${order_query[0]},${order_query[1] || 'ASC'}`;
+
+        var query_url = `${order}${(id_user) ? `&${id_user}` : ''}${(accesory_name) ? `&${accesory_name}` : ''}`;
+
+        var {data} = await axios.get(`${url_get_accessories}?${query_url}`);
         setAccesories(data.slice(0,50));
     }
 
