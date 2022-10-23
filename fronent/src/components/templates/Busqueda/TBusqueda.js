@@ -1,14 +1,20 @@
 import './Busqueda.css';
 
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useState} from 'react';
 import LoginModal from './LoginModal/LoginModal.js';
 
 function Contenedor(){
+    
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [name_accessory, setName_accessory] = useState('');
 
     const navigate = useNavigate();
 
-    const GoToPageFavorites = ()=>{
-        navigate('/favoritos');
+    const handleSearch = async (e)=>{
+        e.preventDefault();
+        navigate(`/accessories?accessory=${name_accessory}`);
+        window.location.reload();
     }
 
     return(
@@ -18,7 +24,7 @@ function Contenedor(){
                 <p>Ayuda</p>
                 <p>|</p>
 
-                    <button onClick={GoToPageFavorites} className="btn dropdown-toggle nav-dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="" aria-expanded="false">
+                    <button onClick={()=>{navigate('/favoritos')}} className="btn dropdown-toggle nav-dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="" aria-expanded="false">
                         <i className="bi bi-heart fav"></i>
                     <p>Mis Favoritos</p>
                     </button>
@@ -46,15 +52,17 @@ function Contenedor(){
                     </ul>
                 </div>
             </div>
-            <div className="contenedor-buscador">
-                <div className="input-group mb-3 input-container-search" >
-                    <input type="text" className="form-control inp-buscador" placeholder="Search"/>
-                    <span className="input-group-text buscador">
-                        <i className="bi bi-search"></i>
-                    </span>
+            <form onSubmit={handleSearch}>
+                <div className="contenedor-buscador">
+                        <div className="input-group mb-3 input-container-search" >
+                            <input onChange={(e)=>{setName_accessory(e.target.value)}} defaultValue={searchParams.get('accessory')} type="text" className="form-control inp-buscador" placeholder="Search"/>
+                            <button type={'submit'} className="input-group-text buscador">
+                                <i className="bi bi-search"></i>
+                            </button>
+                        </div>
+                    <i onClick={()=>{navigate('/shopping_cart')}} className="bi bi-cart2 carrito"></i>
                 </div>
-                <i className="bi bi-cart2 carrito"></i>
-            </div>
+            </form>
             <LoginModal></LoginModal>
         </div>
     )
