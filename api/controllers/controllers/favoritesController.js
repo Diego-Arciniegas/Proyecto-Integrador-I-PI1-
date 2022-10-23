@@ -8,7 +8,7 @@ const addFavorites = async (req, res)=>{
                 id_accessory: req.params.id_accessory
             }
         });
-        if(fav_acc!=null){
+        if(fav_acc==null){
             await models.Favorite_accessories.create({
                 id_user: req.params.id_user,
                 id_accessory: req.params.id_accessory
