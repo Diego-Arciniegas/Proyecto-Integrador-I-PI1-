@@ -11,7 +11,7 @@ function useAuth(){
         return ()=>{
             getAuth();
         }
-    }, []);
+    });
 
     const getAuth = async()=>{
         try{
