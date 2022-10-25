@@ -7,6 +7,7 @@ const Orders = db.define('orders', {
         primaryKey: true,
         autoIncrement: true
     },
+    address: DataTypes.STRING,
     price: {
         type: DataTypes.INTEGER,
         defaultValue: 0

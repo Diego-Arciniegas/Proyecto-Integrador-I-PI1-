@@ -7,10 +7,15 @@ const Users = db.define('users', {
         primaryKey: true,
         autoIncrement: true
     },
+    name: DataTypes.STRING,
+    second_name: DataTypes.STRING,
     name_user: DataTypes.STRING,
     identification: DataTypes.INTEGER,
     email: DataTypes.STRING,
-    id_address: DataTypes.INTEGER,
+    address: {
+        type:  DataTypes.STRING,
+        defaultValue: ""
+    },
     date_creation: {
         type: DataTypes.DATE,
         defaultValue: new Date()

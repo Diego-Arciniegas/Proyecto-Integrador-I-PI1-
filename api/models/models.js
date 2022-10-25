@@ -1,5 +1,4 @@
 const Accessories = require('./models/Accessories.js');
-const Address = require('./models/Address.js');
 const Order_accessories = require('./models/Order_accessories.js');
 const Orders = require('./models/Orders.js');
 const Payment_methods = require('./models/Payment_methods.js');
@@ -33,10 +32,6 @@ Shopping_carts.belongsToMany(Accessories, {
     foreignKey: 'id_shopping_cart'
 });
 
-
-Users.belongsTo(Address, {foreignKey: 'id_address'});
-Address.hasMany(Users, {foreignKey: 'id_address'});
-
 Users.belongsTo(User_types, {foreignKey: 'id_user_type'});
 
 Shopping_carts.belongsTo(Users, {foreignKey: 'id_shopping_cart'});
@@ -52,7 +47,6 @@ Accessories.hasMany(Favorite_accessories, {foreignKey: 'id_accessory'});
 
 module.exports = {
     Accessories,
-    Address,
     Order_accessories,
     Orders,
     Payment_methods,
