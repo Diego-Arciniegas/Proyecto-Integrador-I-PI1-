@@ -15,8 +15,7 @@ function Busqueda(){
 
     return(
         <div className='Busqueda'>
-            <THeader/>
-            <TBusqueda/>
+            <TBusqueda auth={auth}/>
             <div className="row ofertas-categorias">
                 <div className="col-auto">
                     <div className="row">
@@ -55,11 +54,10 @@ function Busqueda(){
                             </div>
                         </div>
                         
-                        <Accesories id_user={auth.id_user}/>
+                        <Accesories auth={auth}/>
                     </div>
                 </div>
             </div>
-            <TFooter/>
         </div>
     )
 }
