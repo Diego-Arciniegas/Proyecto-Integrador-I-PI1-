@@ -1,5 +1,4 @@
 
-DROP PROCEDURE get_accessories;
 
 DELIMITER  //
 CREATE OR REPLACE PROCEDURE get_acessories(id_user INT, order_ VARCHAR(250), where_ VARCHAR(250))
@@ -17,8 +16,7 @@ BEGIN
 		SET @sql_where = CONCAT('WHERE ',where_,' ');
 	END if;
 	
-	SET @qery = CONCAT('SELECT a.id_accessory, a.name_accessory, a.description, a.price, a.stock, a.available, a.image_accesory_path,
-	(SUM(case when ',@sql_user,' then 1 ELSE 0 END)) AS fav
+	SET @qery = CONCAT('SELECT a.id_accessory, a.name_accessory, a.description, a.price, a.stock, a.available, a.image_accesory_path, a.discount,	(SUM(case when ',@sql_user,' then 1 ELSE 0 END)) AS fav
 	FROM favorite_accessories AS fa
 	RIGHT JOIN accessories AS a ON a.id_accessory = fa.id_accessory ',
 	@sql_where,

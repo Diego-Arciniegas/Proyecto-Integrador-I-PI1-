@@ -2,44 +2,18 @@ drop database if exists accesorios;
 create database accesorios;
 use accesorios; 
 
-DELETE FROM address;
-DELETE FROM accessories;
-DELETE FROM payment_methods;
-DELETE FROM user_types;
-DELETE FROM user_status;
-DELETE FROM users;
-DELETE FROM shopping_cart_accessories;
-DELETE FROM shopping_carts;
-DELETE FROM orders;
-DELETE FROM order_accessories;
-DELETE FROM accessories_movement_history;
-DELETE FROM movement_types;
-DELETE FROM accessories_price_history;
-DELETE FROM favorite_accessories;
-
-CREATE TABLE address(
-	id_address INT PRIMARY KEY AUTO_INCREMENT,
-	address_1 VARCHAR(255) NOT NULL,
-	address_2 VARCHAR(255),
-	city VARCHAR(100) NOT NULL,
-	country VARCHAR(100) NOT NULL,
-	postal_code VARCHAR(8) NOT null
-);
-
 CREATE TABLE accessories(
 	id_accessory INT PRIMARY KEY AUTO_INCREMENT,
-	name_accessory VARCHAR(120) NOT NULL,
+	name_accessory TEXT not NULL,
 	description TEXT,
 	price INT NOT NULL,
 	stock INT NOT NULL,
 	available BOOL NOT NULL,
 	image_accesory_path VARCHAR(255) NOT NULL,
-	id_car_model INT NOT NULL,
-	id_business INT NOT NULL,
-	discount INT NOT NULL,
-	FOREIGN KEY (id_car_model) REFERENCES car_models(id_car_model),
-	FOREIGN KEY (id_business) REFERENCES business(id_business)
+	discount INT NOT NULL
 );
+
+ALTER TABLE accessories CONVERT TO CHARACTER SET UTF8;
 
 CREATE TABLE payment_methods(
 	id_payment_method INT PRIMARY KEY AUTO_INCREMENT,
@@ -65,21 +39,18 @@ CREATE TABLE users(
 	name_user VARCHAR(255) NOT NULL,
 	identification INT NOT NULL,
 	email VARCHAR(255) NOT NULL,
-	id_address INT NULL DEFAULT NULL,
+	address VARCHAR(255) NOT NULL,
 	date_creation DATETIME NOT NULL,
 	number_phone INT NOT NULL,
 	id_user_type INT NOT NULL,
     id_user_status INT NOT NULL,
     password VARCHAR (255) NOT NULL,
-	FOREIGN KEY (id_address) REFERENCES address(id_address),
 	FOREIGN KEY (id_user_type) REFERENCES user_types(id_user_type),
     FOREIGN KEY (id_user_status) REFERENCES user_status(id_user_status)
 );
 
 CREATE TABLE shopping_carts(
 	id_shopping_cart INT PRIMARY KEY AUTO_INCREMENT,
-	total_price INT NOT NULL,
-	quantity INT NOT NULL,
 	date_creation DATETIME NOT NULL,
 	id_user INT NOT NULL,
 	FOREIGN KEY (id_user) REFERENCES users(id_user)
@@ -106,6 +77,7 @@ CREATE TABLE orders(
 	id_payment_method INT NOT NULL,
 	id_user INT NOT NULL,
 	returned BOOL NOT NULL DEFAULT FALSE,
+	address VARCHAR(255) NOT NULL,
 	FOREIGN KEY (id_payment_method) REFERENCES payment_methods(id_payment_method),
 	FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
@@ -138,8 +110,6 @@ CREATE TABLE accessories_movement_history(
 	FOREIGN KEY (id_responsible_user) REFERENCES users(id_user),
 	FOREIGN KEY (id_movement_type) REFERENCES movement_types(id_movement_type)
 );
-
-SELECT * from accessories_movement_history;
 
 CREATE TABLE accessories_price_history(
 	id_accessories_price_history INT PRIMARY KEY AUTO_INCREMENT,
