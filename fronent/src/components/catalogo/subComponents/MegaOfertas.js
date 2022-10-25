@@ -21,29 +21,23 @@ function MegaOfertas(props){
     }
 
     return(
-        <div className="row mega-ofertas">
-            <div className="megaofertas-title">
-                <h4>Mega</h4>
-                <h4 className="ofertas-title">Ofertas</h4>
-            </div>
-            <div className="row col-offers">
-                <div className='col carrusel'>
-                    {
-                        accesories.map(accesory=>(
-                            <Accesory
-                                className="col"
-                                key={accesory.id_accessory}
-                                user={props.auth}
-                                id_accessory={accesory.id_accessory}
-                                name={accesory.name_accessory}
-                                price={accesory.price}
-                                discount={accesory.discount}
-                                _favorite={accesory.fav}
-                                image_path={accesory.id_accessory}
-                            />
-                        ))
-                    }
-                </div>
+        <div className="row col-offers">
+            <div className='col carrusel'>
+                {
+                    accesories.map(accesory=>(
+                        <Accesory
+                            className="col"
+                            key={accesory.id_accessory}
+                            user={props.auth}
+                            id_accessory={accesory.id_accessory}
+                            name={accesory.name_accessory}
+                            price={accesory.price}
+                            discount={accesory.discount}
+                            _favorite={accesory.fav}
+                            image_path={accesory.id_accessory}
+                        />
+                    ))
+                }
             </div>
         </div>
     )

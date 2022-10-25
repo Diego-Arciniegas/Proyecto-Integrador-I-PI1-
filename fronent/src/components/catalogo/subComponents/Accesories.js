@@ -20,7 +20,7 @@ function Accesories(props){
     var handleGetAccesories = async ()=>{
         var id_user = (props.auth)?`id_user=${props.auth.id_user}`:null;
         var accesory_name = (searchParams.get('accessory'))?`like=name_accessory,${searchParams.get('accessory')}`:null;
-        var order_query = searchParams.get('order') || 'id_accessory';
+        var order_query = searchParams.get('order') || 'RAND()';
         order_query = order_query.split(',');
         var order = `order=${order_query[0]},${order_query[1] || 'ASC'}`;
 

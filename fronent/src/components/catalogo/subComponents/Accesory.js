@@ -1,11 +1,14 @@
 
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const base_url = process.env.REACT_APP_BASE_URL;
 
 function Accesory(props){
 
+    const navigate = useNavigate();
+    
     const {user, id_accessory, image_path, price, discount, name, _favorite, className} = props;
     const [favorite, setFavorite] = useState(0);
 
@@ -41,14 +44,19 @@ function Accesory(props){
         }
     }
 
+    const goToPage = ()=>{
+        navigate(`/accessory/${id_accessory}`);
+        window.location.reload();
+    }
+
     return(
         <div className={(className) ? className : ''}>
-            <img src={`./img/${image_path}.png`} alt=""/>
+            <img onClick={goToPage} src={`/images/${image_path}.jpg`} alt=""/>
             <div className="price">
                 <h4>${price}</h4>
                 <h4><span className="discount">{(discount!=0) ? `-${discount}%` : ''}</span></h4>
             </div>
-            <p className="description">{name}</p>
+            <p className="description">{(name.length>20)?`${name.slice(0,20)}...`:name}</p>
             <div className="flex-row">
                 <button onClick={handleAddToShopping} className='btn'><i className="bi bi-cart2 h6" style={{'fontSize': '25px'}}></i></button>
                 <button onClick={handleSetFavorite} className='btn'><i className={`bi ${(favorite) ? 'bi-heart-fill' : 'bi-heart'} h6`} style={{'fontSize': '25px'}}></i></button>
