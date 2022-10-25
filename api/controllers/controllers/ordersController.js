@@ -40,7 +40,7 @@ const addOrder = async (req, res)=>{
                     where: {id_order: order.id_order}
                 });
                 await order.destroy();
-                return res.json({error: 0, message: `No hay stock para el accesorio [${accessory.id_accessory}]:'${accessory.name_accessory}', stock ${accessory.stock}.`});
+                return res.status(200).json({error: 0, message: `No hay stock para el accesorio [${accessory.id_accessory}]:'${accessory.name_accessory}', stock ${accessory.stock}.`});
             }
             await accessory.update({
                 stock: (accessory.stock - parseInt(quantity))
@@ -95,6 +95,8 @@ const getOrder = async (req, res)=>{
                     }
                 }, {
                     model: models.Payment_methods
+                },{
+                    model: models.Users
                 }],
                 where: {
                     [Op.and]: lit(sql_where)
@@ -110,6 +112,8 @@ const getOrder = async (req, res)=>{
                     }
                 }, {
                     model: models.Payment_methods
+                },{
+                    model: models.Users
                 }],
                 where: {
                     id_user: req.params.id_user,
