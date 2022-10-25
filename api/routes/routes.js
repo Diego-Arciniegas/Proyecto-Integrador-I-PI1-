@@ -8,7 +8,7 @@ router.route('/restore').post(c.users.restorePassword);
 
 router.route('/users').get(c.users.getUser);
 router.route('/users/:id_user').get(c.users.getUser);
-router.route('/users/:id_user').post(c.users.editUser);
+router.route('/users/:id_user').put(c.users.editUser);
 router.route('/users/:id_user/address').post(c.address.addAddressUser);
 router.route('/users/:id_user/address').get(c.address.getAddress);
 router.route('/users/:id_user/address').put(c.address.editAddress);
