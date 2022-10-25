@@ -32,7 +32,6 @@ function Favoritos(){
 
     return(
         <div className='Favoritos'>
-            <THeader></THeader>
             <TBusqueda auth={auth}></TBusqueda>
             <div className="row guardados-container">
                 <div className="col-10">
@@ -47,11 +46,12 @@ function Favoritos(){
                                     <Fragment key={accesory.id_accessory}>
                                         <li><hr className="dropdown-divider divisor"/></li>
                                         <Accesory
-                                            id_user={auth.id_user}
+                                            user={auth}
                                             id_accessory={accesory.id_accessory}
                                             image_path={accesory.id_accessory}
                                             price={accesory.price}
                                             name={accesory.name_accessory}
+                                            handleGetAccessories={handleGetAccessories}
                                         />
                                     </Fragment>
                                 ))}
@@ -59,7 +59,6 @@ function Favoritos(){
                     </div>
                 </div>
             </div>
-            <TFooter></TFooter>
         </div>
     )
 }
