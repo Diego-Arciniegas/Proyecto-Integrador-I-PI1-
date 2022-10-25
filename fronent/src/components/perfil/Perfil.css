@@ -1,0 +1,237 @@
+
+.navbar .nav > li.dropdown.open.active > a:hover, 
+.navbar .nav > li.dropdown.open > a
+{
+   color: #fff;
+   background-color: #b91773;
+   border-color: #fff;
+}
+.dropdown-toggle::after {
+    content: none;
+}
+.mi-cuenta-logs{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.mi-cuenta-logs button{
+    width: 143px;
+    margin: 0px 5px;
+}
+#login{
+    border-width: 4px;
+    border-color: #245B7E;
+    color: #245B7E;
+    font-weight: 600;
+    border-radius: 10px;
+}
+#register{
+    background-color: #245B7E;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+}
+.dropdown ul{
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #245B7E;
+}
+.divisor{
+    border-width: 2px;
+    border-color: #245B7E;
+    margin: 10px 15px;
+}
+.modal-header {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(0.3rem - 1px);
+    border-top-right-radius: calc(0.3rem - 1px);
+    flex-direction: column;
+}
+.column-form{
+    display: flex;
+    flex-direction: column;
+}
+.column-form input{
+margin-top: 15px;
+
+}
+.margin-footer-modal{
+    margin-top: 15px;
+    padding: 10px 0px 0px 0px;
+}
+.input-small{
+    width: 48%;
+}
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    justify-content: center;
+}
+.nav-link{
+    font-weight: 500;
+}
+.nav-link {
+    color: #3A7295;
+}
+.btn-modal{
+    border-radius: 10px;
+    background-color: #245B7E;
+    color: white;
+}
+.inputs-groups{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.inputs-groups input{
+    width: 48%;
+}
+
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+-webkit-appearance:none;
+  appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] { appearance:textfield; }
+input[type="range"] {
+    appearance: none;
+    margin-right: 15px;
+    width: 90%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 5px;
+    background-image: linear-gradient(#245B7E, #245B7E);
+
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: #245B7E;
+
+  }
+
+.modify-profile button{
+    width: 30%;
+    background-color: #245B7E;
+    color: white;
+}
+.user-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    padding: 10px 7px 7px 10px;
+    margin-left: 10px;
+    min-width: 180px;
+}
+.user-box i{
+    font-size:100px;
+}
+.name-label{
+    font-size: min(2vw, 20px);
+    font-weight: bold;
+}
+.email-label{
+    font-size: min(1.4vw, 15px);
+    font-weight: bold;
+}
+.title-admin-profile{
+    font-size: min(2vw, 20px);
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.modify-profile{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+.modify-profile input{
+    width: 45%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 15px 0px;
+    padding-left: 20px;
+}
+.opt-user{
+    margin: 10px 0px;
+    width: 70%;
+    max-width: 250px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(207, 200, 200);
+}
+.btn:focus {
+    outline: 0;
+    box-shadow: none
+}
+.opt-user i{
+    font-size: min(3vw, 25px);
+    margin-right: 15px;
+}
+.opt-user p{
+    font-size: min(1.5vw, 20px);
+    margin: 0px 15px 0px 0px;
+}
+
+.user-box ul{
+    list-style-type: none;
+    padding: 0px;
+    
+}
+.user-box ul li{
+    margin: 5px 0px;
+    display: flex;
+    flex-direction: row;
+}
+.user-box ul li:hover{
+    color: #245B7E;
+}
+.user-box ul li i{
+    margin-right: 5px;
+}
+.user-box ul li p{
+    margin-bottom: 3px;
+}
+
+.inputs-groups{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.inputs-groups input{
+    width: 48%;
+}
+
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+-webkit-appearance:none;
+  appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] { appearance:textfield; }
