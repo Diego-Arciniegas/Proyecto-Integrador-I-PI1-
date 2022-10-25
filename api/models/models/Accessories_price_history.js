@@ -7,6 +7,7 @@ const Accessories_price_history = db.define('accessories_price_history', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_responsible_user: DataTypes.INTEGER,
     id_accessory: DataTypes.INTEGER,
     old_price: DataTypes.INTEGER,
     new_price: DataTypes.INTEGER,

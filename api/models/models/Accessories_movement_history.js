@@ -12,7 +12,9 @@ const Accessories_movement_history = db.define('accessories_movement_history', {
     value: DataTypes.INTEGER,
     date_movement: DataTypes.DATE,
     id_responsible_user: DataTypes.INTEGER,
-    id_movement_type: DataTypes.INTEGER
+    id_movement_type: DataTypes.INTEGER,
+    since: DataTypes.STRING,
+    towards: DataTypes.STRING
 }, {
     freezeTableName: true,
     timestamps: false
