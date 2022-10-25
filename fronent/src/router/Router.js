@@ -10,6 +10,8 @@ import Catalogo from '../components/catalogo/Catalogo.js';
 import Favoritos from '../components/favoritos/Favoritos.js';
 import Shopping_cart from '../components/shopping_cart/Shopping_cart.js';
 
+import Factura from '../components/factura/Factura.js';
+
 import Busqueda from '../components/busqueda/Busqueda.js';
 
 import Accesorio from '../components/accesorio/Accesorio.js';
@@ -18,10 +20,14 @@ import Mainadmin from '../components/mainadmin/Mainadmin.js';
 import Administrar_productos from '../components/adminstrar_productos/Administrar_productos.js';
 import Editar_producto from '../components/editar_producto/Editar_producto.js';
 
+import Facturas_cliente from '../components/pedidos/Pedidos.js';
+
 import Facturas from '../components/facturas/Facturas.js';
 import Historico_precios from '../components/historico_precios/Historico_precios.js';
 
 import Historico_mp from '../components/historico_movimiento_productos/Historico_mp.js';
+
+import Perfil from '../components/perfil/Perfil.js';
 
 import THeader from '../components/templates/Header/THeader.js';
 import TFooter from '../components/templates/Footer/TFooter.js';
@@ -39,6 +45,9 @@ function Router(){
                 <Route path='/shopping_cart' element={<Shopping_cart/>}/>
                 <Route path='/accessories' element={<Busqueda/>}/>
                 <Route path='/accessory/:id_accessory' element={<Accesorio/>}/>
+                <Route path='/facturas/' element={<Facturas_cliente/>}/>
+                <Route path='/factura/:id_order' element={<Factura/>}/>
+                <Route path='/Perfil' element={<Perfil/>}/>
                 <Route path='/admin/main' element={<Mainadmin/>}/>
                 <Route path='/admin/adminstrar_productos' element={<Administrar_productos/>}/>
                 <Route path='/admin/accessory/edit' element={<Editar_producto/>}/>
