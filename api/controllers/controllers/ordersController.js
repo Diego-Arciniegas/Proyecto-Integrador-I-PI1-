@@ -4,7 +4,7 @@ const lit = require('sequelize').literal;
 
 const addOrder = async (req, res)=>{
     try{
-
+        
         var shopping_cart = await models.Shopping_carts.findOne({
             where: {
                 id_user: req.params.id_user
@@ -137,6 +137,8 @@ const getOneOrder = async (req, res)=>{
                 model: models.Accessories
             }, {
                 model: models.Payment_methods
+            }, {
+                model: models.Users
             }],
             where: {
                 id_order: req.params.id_order
