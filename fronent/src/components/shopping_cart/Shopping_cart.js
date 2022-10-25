@@ -6,6 +6,7 @@ import {Fragment, useState, useEffect} from 'react';
 import TBusqueda from '../templates/Busqueda/TBusqueda.js';
 import useAuth from "../../hooks/useAuth.js";
 import Accesory from "./subComponents/Accesory.js";
+import { useNavigate } from "react-router-dom";
 
 const base_url = process.env.REACT_APP_BASE_URL;
 
@@ -15,6 +16,7 @@ function Shopping_cart(){
     const [accessories, setAccessories] = useState([]);
     const [total_price, setTotal_price] = useState(0);
 
+    const navigate = useNavigate();
     const auth = useAuth();
     
     useEffect(()=>{
@@ -31,16 +33,18 @@ function Shopping_cart(){
 
     const handleGenerateOrder = async ()=>{
         try{
+            console.log(auth.address);
             var {data} = await axios.post(`${base_url}/users/${auth.id_user}/shopping_cart/order`,{
                 discount: 0,
                 tax: 16,
                 id_payment_method: 4,
-                date_deliver: new Date()
+                date_deliver: new Date(),
+                address: auth.address
             });
-            if(data.error == 0){
+            if(data.error == 1){
                 return alert(data.message);
             }
-            window.location.reload();
+            navigate(`/factura/${data.order.id_order}`);
         }catch(error){
             console.log(error);
         }
