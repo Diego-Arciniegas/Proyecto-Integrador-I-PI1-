@@ -27,7 +27,7 @@ function Accesory(props){
     return(
         <li>
             <div className="guardados flex-row">
-                <img src={`./img/${image_path}.png`} alt=""/>
+                <img src={`/images/${image_path}.jpg`} alt=""/>
             </div>
             <div className="description-carrito">
                 <p className="name-description">{name}</p>
@@ -37,7 +37,7 @@ function Accesory(props){
                         Cant:
                     </p>
                     <button onClick={()=>{handleSetCantidad(-1)}} className="btn">-</button>
-                    <input onChange={(e)=>{}} title="cantidad" type="number" className="cantidad" value={cantidad}/>
+                    <input onChange={()=>{}} title="cantidad" type="number" className="cantidad" value={cantidad}/>
                     <button onClick={()=>{handleSetCantidad(1)}} className="btn">+</button>
                 </div>
                 <div className="d-flex flex-column">

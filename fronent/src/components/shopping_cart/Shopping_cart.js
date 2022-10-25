@@ -3,9 +3,7 @@ import './Shopping_cart.css';
 
 import {Fragment, useState, useEffect} from 'react';
 
-import THeader from '../templates/Header/THeader.js';
 import TBusqueda from '../templates/Busqueda/TBusqueda.js';
-import TFooter from '../templates/Footer/TFooter.js';
 import useAuth from "../../hooks/useAuth.js";
 import Accesory from "./subComponents/Accesory.js";
 
@@ -26,14 +24,30 @@ function Shopping_cart(){
     const handleGetShopping_cart = async ()=>{
         if(auth){
             var {data} = await axios.get(`${url_get_accessories}/${auth.id_user}/shopping_cart`);
-            setAccessories(data.accessories);
-            setTotal_price(data.price);
+            setAccessories(data.accessories || []);
+            setTotal_price(data.price || 0);
+        }
+    }
+
+    const handleGenerateOrder = async ()=>{
+        try{
+            var {data} = await axios.post(`${base_url}/users/${auth.id_user}/shopping_cart/order`,{
+                discount: 0,
+                tax: 16,
+                id_payment_method: 4,
+                date_deliver: new Date()
+            });
+            if(data.error == 0){
+                return alert(data.message);
+            }
+            window.location.reload();
+        }catch(error){
+            console.log(error);
         }
     }
 
     return(
         <div className='carro'>
-            <THeader/>
             <TBusqueda auth={auth}/>
             <div className="row guardados-container">
                 <div className="col-9">
@@ -79,7 +93,7 @@ function Shopping_cart(){
                         <p className="name-description">
                             Subtotal(# Productos): <b>${total_price}</b>
                         </p>
-                        <button className="btn" id="comprar" type="button">Proceder al pago</button>
+                        <button onClick={handleGenerateOrder} className="btn" id="comprar" type="button">Proceder al pago</button>
                     </div>
 
                     <div className="box  mt-3 mb-3 me-3 d-flex flex-column">
@@ -99,7 +113,6 @@ function Shopping_cart(){
                     </div>
                 </div>
             </div>
-            <TFooter/>
         </div>
     )
 }
