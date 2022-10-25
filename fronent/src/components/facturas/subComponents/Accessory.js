@@ -15,7 +15,7 @@ function Accessory(props){
             <td>{quantity}</td>
             <td>{date_creation.split('T')[0]}</td>
             <td>
-                <button onClick={()=>{navigate(`/admin/facturas/${id_order}`)}} type="button" className="btn btn-edit">factura</button>
+                <button onClick={()=>{navigate(`/factura/${id_order}`)}} type="button" className="btn btn-edit">factura</button>
             </td>
         </tr>
     )

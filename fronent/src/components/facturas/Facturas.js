@@ -8,7 +8,7 @@ import useAuth from "../../hooks/useAuth.js";
 
 const base_url = process.env.REACT_APP_BASE_URL;
 
-function Historico_precios(){
+function Facturas(){
 
     const auth = useAuth();
 
@@ -72,5 +72,5 @@ function Historico_precios(){
     )
 }
 
-export default Historico_precios;
+export default Facturas;
 
