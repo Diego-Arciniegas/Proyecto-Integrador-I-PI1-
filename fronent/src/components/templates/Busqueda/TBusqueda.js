@@ -59,7 +59,7 @@ function Contenedor(props){
                         }
                         
                         <li><hr className="dropdown-divider divisor"/></li>
-                        {(props.auth)?<li><button onClick={()=>{navigate('/profile')}} className="dropdown-item">Mi cuenta</button></li>:<></>}
+                        {(props.auth)?<li><button onClick={()=>{navigate('/perfil')}} className="dropdown-item">Mi cuenta</button></li>:<></>}
                         <li><button onClick={()=>{navigate('/favoritos')}} className="dropdown-item">Mis favoritos</button></li>
                         <li><button onClick={()=>{navigate('/favoritos')}} className="dropdown-item">Mis Pedidos</button></li>
                         <li><button className="dropdown-item">Garantias</button></li>
