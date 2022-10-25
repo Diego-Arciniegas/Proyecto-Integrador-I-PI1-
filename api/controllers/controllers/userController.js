@@ -44,7 +44,6 @@ const login = async (req, res)=>{
 
 const register = async (req, res)=>{
     try{
-
         var user_db = await models.Users.findOne({
             where: {
                 email: req.body.email
@@ -139,7 +138,9 @@ const restorePassword = async (req, res)=>{
 
 const editUser = async (req, res)=>{
     try{
-
+        if(req.body.password){
+            req.body.password = await bc.hash(req.body.password, 10);
+        }
         await models.Users.update(req.body, {
             where: {
                 id_user: req.params.id_user
