@@ -28,7 +28,7 @@ import TFooter from '../components/templates/Footer/TFooter.js';
 
 function Router(){
     return(
-        <BrowserRouter>
+        <HashRouter>
             <THeader/>
             <Routes>
                 <Route exact path='/' element={<Home/>}/>
@@ -47,7 +47,7 @@ function Router(){
                 <Route path='/admin/historico_movimiento_productos' element={<Historico_mp/>}/>
             </Routes>
             <TFooter/>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
