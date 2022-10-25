@@ -213,9 +213,6 @@ const getAccessoriesMovementHistory = async (req, res)=>{
 
 const savexd = async (req, res)=>{
     try{
-        
-        console.log(eso);
-
         for(let i=0;i<eso.length;i++){
             await models.Accessories.create({
                 id_accessory: eso[i].ID,
@@ -228,10 +225,7 @@ const savexd = async (req, res)=>{
                 discount: 0
             });
         }
-
         res.json({a:"a"});
-
-
     }catch(error){
         res.json({a:error.message});
     }
