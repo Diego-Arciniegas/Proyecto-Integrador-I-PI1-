@@ -1,0 +1,68 @@
+
+.container-opt{
+    height: 50vh;
+
+}
+
+.container-btn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    justify-content: center;
+    
+}
+.container-btn button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    max-height: 150px;
+    background-color: #245B7E;
+    color: white;
+    width: 100%;
+    height: 80%;
+    justify-content: center;
+    font-size: min(2vw, 30px);
+}
+.container-btn button:hover{
+    
+    background-color: #245B7E;
+    color: white;
+}
+.stock{
+    width: 40px;
+    height: 38.21px;
+}
+.btn-edit{
+    color: white;
+    background-color: #245B7E;
+}
+.btn-edit:hover{
+    color: white;
+    background-color: #2972a0;
+}
+*::-webkit-scrollbar {
+    width: 14px;
+    height: 18px;
+}
+  
+*::-webkit-scrollbar-thumb {
+    height: 6px;
+    border: 4px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    background-color: rgb(56, 56, 56);
+    border-radius: 20px;
+    box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05),
+      inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+}
+  
+*::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+}
+  
+*::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
