@@ -29,6 +29,8 @@ import Historico_mp from '../components/historico_movimiento_productos/Historico
 
 import Perfil from '../components/perfil/Perfil.js';
 
+import Metodo_pago from '../components/metodo_pago/Metodo_pago.js';
+
 import THeader from '../components/templates/Header/THeader.js';
 import TFooter from '../components/templates/Footer/TFooter.js';
 
@@ -43,6 +45,7 @@ function Router(){
                 <Route path='/catalogo' element={<Catalogo/>}/>
                 <Route path='/favoritos' element={<Favoritos/>}/>
                 <Route path='/shopping_cart' element={<Shopping_cart/>}/>
+                <Route path='/metodo_pago' element={<Metodo_pago/>}/>
                 <Route path='/accessories' element={<Busqueda/>}/>
                 <Route path='/accessory/:id_accessory' element={<Accesorio/>}/>
                 <Route path='/facturas/' element={<Facturas_cliente/>}/>

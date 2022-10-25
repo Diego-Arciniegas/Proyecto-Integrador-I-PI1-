@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 const base_url = process.env.REACT_APP_BASE_URL;
 
 function Login(){
     
+    const navigate = useNavigate();
     const url_login = `${base_url}/login`;
 
     const [email, setEmail] = useState('');
@@ -14,8 +16,13 @@ function Login(){
     var handleLogin = async (e)=>{
         e.preventDefault();
         try{
-            var response = await axios.post(url_login, {email, password});
-            localStorage.setItem('user_token', response.data.token);
+            var {data} = await axios.post(url_login, {email, password});
+            localStorage.setItem('user_token', data.token);
+            if(data.user.id_user_type==1){
+                navigate('/catalogo');
+            }else{
+                navigate('/admin/main');
+            }
         }catch(error){
             alert(error.response.data.message);
         }

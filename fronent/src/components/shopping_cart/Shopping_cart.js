@@ -31,25 +31,6 @@ function Shopping_cart(){
         }
     }
 
-    const handleGenerateOrder = async ()=>{
-        try{
-            console.log(auth.address);
-            var {data} = await axios.post(`${base_url}/users/${auth.id_user}/shopping_cart/order`,{
-                discount: 0,
-                tax: 16,
-                id_payment_method: 4,
-                date_deliver: new Date(),
-                address: auth.address
-            });
-            if(data.error == 1){
-                return alert(data.message);
-            }
-            navigate(`/factura/${data.order.id_order}`);
-        }catch(error){
-            console.log(error);
-        }
-    }
-
     return(
         <div className='carro'>
             <TBusqueda auth={auth}/>
@@ -97,7 +78,7 @@ function Shopping_cart(){
                         <p className="name-description">
                             Subtotal(# Productos): <b>${total_price}</b>
                         </p>
-                        <button onClick={handleGenerateOrder} className="btn" id="comprar" type="button">Proceder al pago</button>
+                        <button onClick={()=>{navigate('/metodo_pago')}} className="btn" id="comprar" type="button">Proceder al pago</button>
                     </div>
 
                     <div className="box  mt-3 mb-3 me-3 d-flex flex-column">
