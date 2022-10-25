@@ -1,7 +1,9 @@
 const models = require('../../models/models.js');
-const {Op} = require('sequelize');
+const {Op, where} = require('sequelize');
 const sequelize = require('../../database/database.js');
 const lit = require('sequelize').literal;
+
+const eso = require('./productos.json');
 
 // Crear un accessorio
 const addAccessories = async (req, res)=>{
@@ -29,11 +31,11 @@ const getAccessories = async (req, res)=>{
     try{
         if(req.query.order!=undefined){
             var order = req.query.order.split(',');
-            var sql_order = `'a.${order[0]} ${order[1] || "ASC"}'`;
+            var sql_order = `'${order[0]} ${order[1] || "ASC"}'`;
         }
         if(req.query.like!=undefined){
             var like = req.query.like.split(',');
-            var sql_where = `'a.${like[0]} LIKE "%${like[1]}%"'`
+            var sql_where = `'${like[0]} LIKE "%${like[1]}%"'`
         }
 
         var accessories = 
@@ -81,6 +83,46 @@ const getBussinessAccessories = async (req, res)=>{
 // Editar un accessorio
 const editAccessory = async (req, res)=>{
     try{
+        if(req.body.price){
+            var accessory = await models.Accessories.findByPk(req.params.id_accessory);
+            if(accessory.price!=req.body.price){
+                await models.Accessories_price_history.create({
+                    id_accessory: req.params.id_accessory,
+                    old_price: accessory.price,
+                    new_price: req.body.price,
+                    modified_date: new Date(),
+                    id_responsible_user: req.body.id_user
+                });
+            }
+        }else if(req.body.stock){
+            var accesory = await models.Accessories.findByPk(req.params.id_accessory);
+            if(parseInt(req.body.stock)>accesory.stock){
+                var type = 1;
+            }else if(parseInt(req.body.stock)<accesory.stock){
+                var type = 4;
+            }
+            if(type){
+                if(type==1){
+                    var since = "Fabrica";
+                    var towards = "Bodega";
+                }else{
+                    var since = "Bodega";
+                    var towards = "Fabrica";
+                }
+
+                let quantity = req.body.stock-accesory.stock;
+                await models.Accessories_movement_history.create({
+                    id_accessory: req.params.id_accessory,
+                    quantity,
+                    value: quantity*(accesory.price*(100-accesory.discount)/100),
+                    date_movement: new Date(),
+                    id_responsible_user: req.body.id_user,
+                    id_movement_type: type,
+                    since, towards
+                });
+            }
+        }
+
         await models.Accessories.update(req.body, {
             where: {
                 id_accessory: req.params.id_accessory
@@ -106,13 +148,106 @@ const deleteAccessory = async (req, res)=>{
     }
 }
 
+const getAccessoriesPriceHistory = async (req, res)=>{
+    try{
+        if(req.query.order!=undefined){
+            var order = req.query.order.split(',');
+            var sql_order = `Accessories_price_history.${order[0]} ${order[1] || "ASC"}`;
+        }
+
+        if(req.query.like!==undefined){
+            var like = req.query.like.split(',');
+            var sql_where = `${like[0]} LIKE '%${like[1]}%'`
+        }
+
+        var history = await models.Accessories_price_history.findAll({
+            include:[{
+                model: models.Users
+            },{
+                model: models.Accessories
+            }],
+            where: {
+                [Op.and]: lit(sql_where)
+            },
+            order: lit(sql_order || "Accessories_price_history.id_accessories_price_history")
+        });
+
+        res.status(200).json({error: 0, history});
+
+    }catch(error){
+        res.status(400).json({error: error.message});
+    }
+}
+
+const getAccessoriesMovementHistory = async (req, res)=>{
+    try{
+        if(req.query.order!=undefined){
+            var order = req.query.order.split(',');
+            var sql_order = `Accessories_movement_history.${order[0]} ${order[1] || "ASC"}`;
+        }
+        if(req.query.like!==undefined){
+            var like = req.query.like.split(',');
+            var sql_where = `${like[0]} LIKE '%${like[1]}%'`
+        }
+        
+        var history = await models.Accessories_movement_history.findAll({
+            include:[
+                {
+                    model: models.Accessories
+                },{
+                    model: models.Users
+                }
+            ],
+            where: {
+                [Op.and]: lit(sql_where)
+            },
+            order: lit(sql_order || "Accessories_movement_history.id_accessory_movement_history")
+        });
+
+        res.status(200).json({error: 0, history});
+
+    }catch(error){
+        res.status(400).json({error: error.message});
+    }
+}
+
+const savexd = async (req, res)=>{
+    try{
+        
+        console.log(eso);
+
+        for(let i=0;i<eso.length;i++){
+            await models.Accessories.create({
+                id_accessory: eso[i].ID,
+                name_accessory: eso[i].Nombre,
+                description: eso[i].Descripcion,
+                price: eso[i].Precio,
+                stock: eso[i].Stock,
+                available: 1,
+                image_accesory_path: eso[i].ID,
+                discount: 0
+            });
+        }
+
+        res.json({a:"a"});
+
+
+    }catch(error){
+        res.json({a:error.message});
+    }
+}
+
+
 module.exports = {
     addAccessories,
     getOneAccessory,
     getAccessories,
     getBussinessAccessories,
     editAccessory,
-    deleteAccessory
+    deleteAccessory,
+    getAccessoriesPriceHistory,
+    getAccessoriesMovementHistory,
+    savexd
 }
 
 
