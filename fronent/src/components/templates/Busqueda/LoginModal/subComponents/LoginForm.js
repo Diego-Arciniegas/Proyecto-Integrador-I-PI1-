@@ -15,6 +15,7 @@ function LoginForm(){
         try{
             var response = await axios.post(url_login, {email, password});
             localStorage.setItem('user_token', response.data.token);
+            window.location.reload();
         }catch(error){
             alert(error.response.data.message);
         }

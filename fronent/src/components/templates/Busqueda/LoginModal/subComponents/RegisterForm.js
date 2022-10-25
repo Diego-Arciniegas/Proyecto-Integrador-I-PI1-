@@ -29,6 +29,7 @@ function RegisterForm(){
             });
 
             localStorage.setItem('user_token', response.data.token);
+            window.location.reload();
         }catch(error){
             if(error.response){
                 alert(error.response.data.message);

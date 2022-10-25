@@ -17,6 +17,12 @@ function Contenedor(props){
         window.location.reload();
     }
     
+    const handleLogout = ()=>{
+        localStorage.removeItem('user_token');
+        navigate('/catalogo');
+        window.location.reload();
+    }
+
     return(
         <div className="contenedor">
             <div className="barra-ayudas">
@@ -35,7 +41,7 @@ function Contenedor(props){
                         <p>Mi cuenta </p>
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        {(props.auth!==null) 
+                        {(props.auth) 
                             ?
                             <div className="mi-cuenta-logs">
                                 <i className="bi bi-person-circle"></i>
@@ -53,11 +59,12 @@ function Contenedor(props){
                         }
                         
                         <li><hr className="dropdown-divider divisor"/></li>
-                        <li><a className="dropdown-item" href="#">Mis favoritos</a></li>
-                        <li><a className="dropdown-item" href="#">Mis Pedidos</a></li>
-                        <li><a className="dropdown-item" href="#">Metodos de pago</a></li>
-                        <li><a className="dropdown-item" href="#">Garantias</a></li>
-                        <li><a className="dropdown-item" href="#">Ofertas</a></li>
+                        {(props.auth)?<li><button onClick={()=>{navigate('/profile')}} className="dropdown-item">Mi cuenta</button></li>:<></>}
+                        <li><button onClick={()=>{navigate('/favoritos')}} className="dropdown-item">Mis favoritos</button></li>
+                        <li><button onClick={()=>{navigate('/favoritos')}} className="dropdown-item">Mis Pedidos</button></li>
+                        <li><button className="dropdown-item">Garantias</button></li>
+                        <li><button onClick={()=>{navigate('/accessories')}} className="dropdown-item">Ofertas</button></li>
+                        {(props.auth)?<li><button onClick={handleLogout} className="dropdown-item">Cerrar Sesion</button></li>:''}
                     </ul>
                 </div>
             </div>
