@@ -2,6 +2,21 @@ drop database if exists accesorios;
 create database accesorios;
 use accesorios; 
 
+DELETE FROM address;
+DELETE FROM accessories;
+DELETE FROM payment_methods;
+DELETE FROM user_types;
+DELETE FROM user_status;
+DELETE FROM users;
+DELETE FROM shopping_cart_accessories;
+DELETE FROM shopping_carts;
+DELETE FROM orders;
+DELETE FROM order_accessories;
+DELETE FROM accessories_movement_history;
+DELETE FROM movement_types;
+DELETE FROM accessories_price_history;
+DELETE FROM favorite_accessories;
+
 CREATE TABLE address(
 	id_address INT PRIMARY KEY AUTO_INCREMENT,
 	address_1 VARCHAR(255) NOT NULL,
@@ -9,22 +24,6 @@ CREATE TABLE address(
 	city VARCHAR(100) NOT NULL,
 	country VARCHAR(100) NOT NULL,
 	postal_code VARCHAR(8) NOT null
-);
-
--- por revisar con las demas empresas
-CREATE TABLE car_models(
-	id_car_model INT PRIMARY KEY AUTO_INCREMENT,
-	name_car_model VARCHAR(120) NOT NULL,
-	description TEXT
-);
-
-CREATE TABLE business(
-	id_business INT PRIMARY KEY AUTO_INCREMENT,
-    name_business VARCHAR(255) NOT NULL,
-    id_address INT NOT NULL,
-    number_phone INT NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    FOREIGN KEY (id_address) REFERENCES address(id_address)
 );
 
 CREATE TABLE accessories(
@@ -133,10 +132,14 @@ CREATE TABLE accessories_movement_history(
 	date_movement DATETIME NOT NULL,
 	id_responsible_user INT NOT NULL,
 	id_movement_type INT NOT NULL,
+	since VARCHAR(255) NOT NULL,
+	towards VARCHAR(255) NOT NULL,
 	FOREIGN KEY (id_accessory) REFERENCES accessories(id_accessory),
 	FOREIGN KEY (id_responsible_user) REFERENCES users(id_user),
 	FOREIGN KEY (id_movement_type) REFERENCES movement_types(id_movement_type)
 );
+
+SELECT * from accessories_movement_history;
 
 CREATE TABLE accessories_price_history(
 	id_accessories_price_history INT PRIMARY KEY AUTO_INCREMENT,
@@ -156,6 +159,9 @@ CREATE TABLE favorite_accessories(
 	FOREIGN KEY (id_user) REFERENCES users(id_user),
 	FOREIGN KEY (id_accessory) REFERENCES accessories(id_accessory) 
 );
+
+
+
 
 
 
